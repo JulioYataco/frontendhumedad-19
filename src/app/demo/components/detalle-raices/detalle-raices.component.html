@@ -1,0 +1,69 @@
+<!---->
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="Listado">
+            <div class="row g-1">
+                <div class="col-md-12 mb-3">
+                    <!-- Botón para abrir modal de nuevo producto -->
+                    <p-button label="Nuevo" icon="pi pi-plus" (click)="mostrarDialogo()"></p-button>
+                    <!-- Tabla -->                            
+                    <p-table [value]="lista" styleClass="p-datatable-striped">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: auto; text-align: center;">ID</th>
+                                <th style="width: auto; text-align: center;">VARIEDAD</th>
+                                <th style="width: auto; text-align: center;">VARIEDAD RAICES</th>
+                                <th style="width: auto; text-align: center;">EDAD INICIO</th>
+                                <th style="width: auto; text-align: center;">EDAD FINAL</th>
+                                <th style="width: auto; text-align: center;">TAMAÑO MINIMO</th>
+                                <th style="width: auto; text-align: center;">TAMAÑO MAXIMO</th>
+                                <th style="width: auto; text-align: center;">OPERACIONES</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-entidad>
+                            <tr>
+                                <td style="width: auto; text-align: center;">{{entidad.id}}</td>
+                                <td style="width: auto; text-align: center;">{{entidad.variedad}}</td>
+                                <td style="width: auto; text-align: center;">{{entidad.variedad_raiz}}</td>
+                                <td style="width: auto; text-align: center;">{{entidad.edad_inicio}}</td>
+                                <td style="width: auto; text-align: center;">{{entidad.edad_final}}</td>
+                                <td style="width: auto; text-align: center;">{{entidad.dimension_min}}</td>
+                                <td style="width: auto; text-align: center;">{{entidad.dimension_max}}</td>
+                                <td style="width: auto; text-align: center;">
+                                    <button pRipple pButton label="Editar" icon="pi pi-pencil" (click)="CargarDatosModal(entidad)" class="p-button-text p-button-sm"></button>
+                                    <button pRipple pButton label="Eliminar" icon="pi pi-trash" class="p-button-text p-button-sm p-button-danger" (click)="eliminar(entidad.id)"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+
+<!-- Modal para agregar o editar producto -->
+<p-dialog [(visible)]="displayModal" [modal]="true" header="Formulario">
+  <div class="p-fluid">
+    <label for="variedad">variedad</label>
+    <input id="variedad" type="text" pInputText [(ngModel)]="entidad.variedad" />
+
+    <label for="variedad_raiz">variedad raiz</label>
+    <input id="variedad_raiz" type="text" pInputText [(ngModel)]="entidad.variedad_raiz" />
+
+    <label for="edad_inicio">edad inicio</label>
+    <input id="edad_inicio" type="text" pInputText [(ngModel)]="entidad.edad_inicio" />
+
+    <label for="edad_final">edad final</label>
+    <input id="edad_final" type="text" pInputText [(ngModel)]="entidad.edad_final" />
+
+    <label for="dimension_min">tamaño min</label>
+    <input id="dimension_min" type="text" pInputText [(ngModel)]="entidad.dimension_min" />
+
+    <label for="dimension_max">tamaño max</label>
+    <input id="dimension_max" type="text" pInputText [(ngModel)]="entidad.dimension_max" />
+
+    <button pButton label="Guardar" (click)="guardar()" class="p-mt-3"></button>
+  </div>
+</p-dialog>

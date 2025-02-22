@@ -33,7 +33,121 @@ export const NavigationItems: NavigationItem[] = [
         url: '/dashboard/default',
         icon: 'dashboard',
         breadcrumbs: false
+      },
+      {
+        id: 'lecturashumedad',
+        title: 'Lecturas de Humedad',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/lecturashumedad',
+        icon: 'dashboard',
+        breadcrumbs: false
       }
+    ]
+  },
+  //Esto es para que todos los cruds aparescan en el navbar
+  {
+    id: 'Crud',
+    title: 'Crud',
+    type: 'group',
+    icon: 'icon-navigation',
+    children: [
+      {
+        id: 'sedes',
+        title: 'Sedes',
+        type: 'item',
+        url: '/sedes',
+        classes: 'nav-item',
+        icon: 'profile'
+      },
+      {
+        id: 'fundos',
+        title: 'Fundos',
+        type: 'item',
+        url: '/fundos',
+        classes: 'nav-item',
+        icon: 'profile'
+      },
+      {
+        id: 'lotes',
+        title: 'Lotes',
+        type: 'item',
+        url: '/lotes',
+        classes: 'nav-item',
+        icon: 'profile'
+      },
+      {
+        id: 'sublotes',
+        title: 'Sublotes',
+        type: 'item',
+        url: '/sublotes',
+        classes: 'nav-item',
+        icon: 'profile'
+      },
+      {
+        id: 'cultivos',
+        title: 'Cultivos',
+        type: 'item',
+        url: '/cultivos',
+        classes: 'nav-item',
+        icon: 'profile'
+      },
+      {
+        id: 'variedades',
+        title: 'Variedades',
+        type: 'item',
+        url: '/variedades',
+        classes: 'nav-item',
+        icon: 'profile'
+      },
+      {
+        id: 'tipo-suelos',
+        title: 'Tipos de suelos',
+        type: 'item',
+        url: '/tipos-suelos',
+        classes: 'nav-item',
+        icon: 'profile'
+      },
+      {
+        id: 'fenologias',
+        title: 'Fenologias',
+        type: 'item',
+        url: '/fenologias',
+        classes: 'nav-item',
+        icon: 'profile'
+      },
+      {
+        id: 'variedad-raices',
+        title: 'Variedades de raiz',
+        type: 'item',
+        url: '/variedad-raices',
+        classes: 'nav-item',
+        icon: 'profile'
+      },
+      {
+        id: 'detalle-raices',
+        title: 'Detalle de raices',
+        type: 'item',
+        url: '/detalle-raices',
+        classes: 'nav-item',
+        icon: 'profile'
+      },
+      {
+        id: 'procesadores',
+        title: 'Procesadores',
+        type: 'item',
+        url: '/procesadores',
+        classes: 'nav-item',
+        icon: 'profile'
+      },
+      {
+        id: 'configuracion_proces',
+        title: 'Configurar procesador',
+        type: 'item',
+        url: '/configuracion_procesadores',
+        classes: 'nav-item',
+        icon: 'profile'
+      },
     ]
   },
   {

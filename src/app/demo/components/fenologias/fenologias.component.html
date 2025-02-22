@@ -1,0 +1,69 @@
+<!---->
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="Listado">
+            <div class="row g-1">
+                <div class="col-md-12 mb-3">
+                    <!-- Botón para abrir modal de nuevo producto -->
+                    <p-button label="Nuevo Fundo" icon="pi pi-plus" (click)="mostrarDialogo()"></p-button>
+                    <!-- Tabla -->                            
+                    <p-table [value]="lista" styleClass="p-datatable-striped">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: auto; text-align: center;">ID</th>
+                                <th style="width: auto; text-align: center;">VARIEDAD</th>
+                                <th style="width: auto; text-align: center;">TIPO DE SUELO</th>
+                                <th style="width: auto; text-align: center;">ETAPA FENOLOGICA</th>
+                                <th style="width: auto; text-align: center;">INICIO</th>
+                                <th style="width: auto; text-align: center;">DURACION</th>
+                                <th style="width: auto; text-align: center;">RENDIMIENTO</th>
+                                <th style="width: auto; text-align: center;">OPERACIONES</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-entidad>
+                            <tr>
+                                <td style="width: auto; text-align: center;">{{entidad.id}}</td>
+                                <td style="width: auto; text-align: center;">{{entidad.tipo_suelo}}</td>
+                                <td style="width: auto; text-align: center;">{{entidad.etapa_fenologica}}</td>
+                                <td style="width: auto; text-align: center;">{{entidad.inicio}}</td>
+                                <td style="width: auto; text-align: center;">{{entidad.duracion}}</td>
+                                <td style="width: auto; text-align: center;">{{entidad.rendimiento_estimado}}</td>
+                                <td style="width: auto; text-align: center;">{{entidad.observacion}}</td>
+                                <td style="width: auto; text-align: center;">
+                                    <button pRipple pButton label="Editar" icon="pi pi-pencil" (click)="CargarDatosModal(entidad)" class="p-button-text p-button-sm"></button>
+                                    <button pRipple pButton label="Eliminar" icon="pi pi-trash" class="p-button-text p-button-sm p-button-danger" (click)="eliminar(entidad.id)"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+
+<!-- Modal para agregar o editar producto -->
+<p-dialog [(visible)]="displayModal" [modal]="true" header="Formulario">
+  <div class="p-fluid">
+    <label for="variedad">variedad</label>
+    <input id="variedad" type="text" pInputText [(ngModel)]="entidad.variedad" />
+
+    <label for="tipo_suelo">tipo_suelo</label>
+    <input id="tipo_suelo" type="text" pInputText [(ngModel)]="entidad.tipo_suelo" />
+    
+    <label for="inicio">inicio</label>
+    <input id="inicio" type="text" pInputText [(ngModel)]="entidad.inicio" />
+
+    <label for="duracion">duracion</label>
+    <input id="duracion" type="text" pInputText [(ngModel)]="entidad.duracion" />
+
+    <label for="rendimiento_estimado">rendimiento estimado</label>
+    <input id="rendimiento_estimado" type="text" pInputText [(ngModel)]="entidad.etapa_fenologica" />
+
+    <label for="observacion">observacion</label>
+    <input id="observacion" type="text" pInputText [(ngModel)]="entidad.observacion" />
+
+    <button pButton label="Guardar" (click)="guardar()" class="p-mt-3"></button>
+  </div>
+</p-dialog>

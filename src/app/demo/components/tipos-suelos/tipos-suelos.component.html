@@ -1,0 +1,54 @@
+<!---->
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="Listado">
+            <div class="row g-1">
+                <div class="col-md-12 mb-3">
+                    <!-- Botón para abrir modal de nuevo producto -->
+                    <p-button label="Nuevo Fundo" icon="pi pi-plus" (click)="mostrarDialogo()"></p-button>
+                    <!-- Tabla -->                            
+                    <p-table [value]="lista" styleClass="p-datatable-striped">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 10%; text-align: center;">ID</th>
+                                <th style="width: 20%; text-align: center;">TIPO DE SUELO</th>
+                                <th style="width: 20%; text-align: center;">CAPACIDAD DE RETENCIÓN DE AGUA</th>
+                                <th style="width: 40%; text-align: center;">DRENAJE</th>
+                                <th style="width: 30%; text-align: center;">OPERACIONES</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-entidad>
+                            <tr>
+                                <td style="width: 10%; text-align: center;">{{entidad.id}}</td>
+                                <td style="width: 10%; text-align: center;">{{entidad.nombre_tipo_suelo}}</td>
+                                <td style="width: 20%; text-align: center;">{{entidad.capacidad_retencion_agua}}</td>
+                                <td style="width: 20%; text-align: center;">{{entidad.drenaje}}</td>
+                                <td style="width: 30%; text-align: center;">
+                                    <button pRipple pButton label="Editar" icon="pi pi-pencil" (click)="CargarDatosModal(entidad)" class="p-button-text p-button-sm"></button>
+                                    <button pRipple pButton label="Eliminar" icon="pi pi-trash" class="p-button-text p-button-sm p-button-danger" (click)="eliminar(entidad.id)"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+
+<!-- Modal para agregar o editar producto -->
+<p-dialog [(visible)]="displayModal" [modal]="true" header="Formulario">
+  <div class="p-fluid">
+    <label for="nombre_tipo_suelo">tipo suelo</label>
+    <input id="nombre_tipo_suelo" type="text" pInputText [(ngModel)]="entidad.nombre_tipo_suelo" />
+
+    <label for="capacidad_retencion_agua">capacidad retencion agua</label>
+    <input id="capacidad_retencion_agua" type="text" pInputText [(ngModel)]="entidad.capacidad_retencion_agua" />
+
+    <label for="drenaje">hectareas</label>
+    <input id="drenaje" type="text" pInputText [(ngModel)]="entidad.drenaje" />
+
+    <button pButton label="Guardar" (click)="guardar()" class="p-mt-3"></button>
+  </div>
+</p-dialog>
