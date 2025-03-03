@@ -4,8 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Project import
 import { AdminComponent } from './theme/layouts/admin-layout/admin-layout.component';
-import { GuestLayoutComponent } from './theme/layouts/guest-layout/guest-layout.component';
+//import { GuestLayoutComponent } from './theme/layouts/guest-layout/guest-layout.component';
 import { authGuard } from './core/guards/auth.guard';
+import { authenticatedGuard } from './core/guards/authenticated.guard';
 //import { AuthGuard } from './core/guards/auth.guard';
 export const routes: Routes = [
   {
@@ -24,15 +25,6 @@ export const routes: Routes = [
       {
         path: 'lecturashumedad',
         loadComponent: () => import('./demo/components/dashboard/lecturas-humedad/lecturas-humedad.component').then((c) => c.LecturasHumedadComponent)
-      },
-      {
-        path: 'typography',
-        loadComponent: () => import('./demo/component/basic-component/color/color.component').then((c) => c.ColorComponent),
-        canActivate: [authGuard]
-      },
-      {
-        path: 'color',
-        loadComponent: () => import('./demo/component/basic-component/typography/typography.component').then((c) => c.TypographyComponent)
       },
       {
         path: 'sample-page',
@@ -108,24 +100,9 @@ export const routes: Routes = [
     ]
   },
   {
-    path: '',
-    component: GuestLayoutComponent,
-    children: [
-      {
-        path: 'login',
-        loadComponent: () => import('./demo/pages/authentication/auth-login/auth-login.component').then((c) => c.AuthLoginComponent)
-      },
-      {
-        path: 'register',
-        loadComponent: () =>
-          import('./demo/pages/authentication/auth-register/auth-register.component').then((c) => c.AuthRegisterComponent)
-      }
-    ]
-  },
-  {
-    path: 'logintest',
-    loadComponent: ()=> import('./demo/components/auth/login/login.component')
-    //canActivate: [AuthenticatedGuard]
+    path: 'login',
+    loadComponent: ()=> import('./demo/components/auth/login/login.component'),
+    canActivate: [authenticatedGuard]
   }
 ];
 

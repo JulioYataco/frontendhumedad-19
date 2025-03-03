@@ -1,1 +1,48 @@
-<div echarts [options]="chartOption" class="chart-container"></div>
+<!---->
+<div class="row">
+    <div class="col-md-12 col-xl-12">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="mb-0">Lecturas</h5>
+            <div class="d-flex gap-2 chart-income">
+                <div class="chart-income month">Lectura</div>
+                <div class="chart-income week active">Temperatura</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                    <div style="min-height: 465px;">
+                        <!--
+                        <app-card cardTitle="Monitoreo">-->
+                            <!--
+                            <div class="row g-1"> -->
+                                <!--Seleccionable-->
+                                <div style="align-item-right">
+                                    <label for="configuracion">Seleccionar procesador: </label>
+                                    <select id="configuracion" [(ngModel)]="selecionableConfigId" (change)="ConfiguracionesChange()">
+                                        <option *ngFor="let configuracion of configuraciones" [value]="configuracion.id">
+                                            {{configuracion.id}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <!--Botones de filtro-->
+                                <div>
+                                    <button (click)="showHumedad()" [class.active]="showHumedadData">Humedad</button>
+                                    <button (click)="showTemperatura()" [class.active]="showTemperaturaData">Temperatura</button>
+                                </div>
+                                <!--Grafco
+                                <div class="col-md-12 mb-3">
+                                    <div class="col-md-12 col-xl-12">-->
+                                        <div echarts id="main" class="apexcharts-canvas apexcharts apexcharts-theme-light" style="padding: 20px;"></div>   
+                                    <!--</div>
+                                </div>
+                            </div>-->
+                        <!--
+                        </app-card>-->
+
+                    </div>
+                
+
+            </div>
+        </div>
+    </div>
+</div>

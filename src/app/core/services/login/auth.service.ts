@@ -1,29 +1,24 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { Observable, tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http'; //Permite hacer peticiones http al backend
+import { Injectable } from '@angular/core'; //Convierte la clase en un servicio inyectable
+import { Router } from '@angular/router'; //Permite redireccionar a otras rutas dentro de angular
+import { CookieService } from 'ngx-cookie-service'; //Se usa para manejar cookies en el navegador 
+import { Observable, tap } from 'rxjs'; //Define operaciones asíncronas, como llamadas HTTP y tap: Permite ejecutar codigo adicional cuando se recibe la respuesta HTTP
+import { environment } from 'src/environments/environment'; //Importamos para obtener la variable de entorno apiURL
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
-  private url = environment.apiUrl
-  private LOGIN_URL = `${this.url}/LoginView/`;
-  
-  private REFRESH_URL = `${this.url}/token/refresh/`;
+  private url = environment.apiUrl; //Guardamos la url base
 
-  private LOGOUT_URL = `${this.url}/api/api/cerrarsesion/`;
+  //Agregamos el endpoint a la url base y lo almacenamos en una constante
+  private LOGIN_URL = `${this.url}/Login/`;           //Para login
+  private REFRESH_URL = `${this.url}/token/refresh/`; //Para referscar token
+  private LOGOUT_URL = `${this.url}/cerrarSesion/`;   //Para cerrar sesion
+
   constructor(private httpClient: HttpClient, private router: Router, private cookieService: CookieService ) { }
-
-  //Metodo para guardar el token en cookies
-  setCookie(nombre: string, valor: string, dias: number){
-    const fechaExpiracion = new Date();
-    fechaExpiracion.setDate(fechaExpiracion.getDate() + dias);
-    this.cookieService.set(nombre, valor, fechaExpiracion, '/')
-  }
 
   //Metodo para obtener el token desde la cookies
   getToken(): string | null {
@@ -36,22 +31,18 @@ export class AuthService {
 
   //Guardamos el access token
   saveToken(token: string): void {
-    const expiresminutes = new Date(new Date().getTime() + 0.5 * 60 * 1000);
+    const expiresminutes = new Date(new Date().getTime() + 15 * 60 * 1000);
     this.cookieService.set('access_token', token, expiresminutes);
   }
 
-  //Metodo para eliminar token de la cookie
-  // deleteCookies(nombre: string){
-  //   this.cookieService.delete(nombre, '/');
-  // }
-
+  //Metodo login
   login(username: string, password: string): Observable<any>{
     return this.httpClient.post<any>(this.LOGIN_URL, {username, password}).pipe(
       tap(response =>{
         console.log(response);
         if (response.access_token && response.refresh){
           //Agregamos los token a la cokies
-          const expiresminute = new Date(new Date().getTime() + 0.5 * 60 * 1000);
+          const expiresminute = new Date(new Date().getTime() + 15 * 60 * 1000);
           this.cookieService.set("access_token", response.access_token, expiresminute);
           this.cookieService.set("refresh_token", response.refresh, 7);
           console.log("usuario autenticado");
@@ -62,6 +53,7 @@ export class AuthService {
     );
   }
 
+  //Metodo para refrescar token
   refreshToken(): Observable<any> {
     const refresh = this.getRefreshToken();
     return this.httpClient.post<any>(this.REFRESH_URL, { refresh: refresh }).pipe(
@@ -75,9 +67,24 @@ export class AuthService {
     );
   }
 
-  logout(): void {
+  //Metodo para eliminar jwt tokens de la cookies
+  private eliminarCookies(): void {
     this.cookieService.delete('access_token');
     this.cookieService.delete('refresh_token');
-    //window.location.href = '/logintest';
+    window.location.href = '/login';
+  }
+
+  //Metodo para cerrar sesión
+  logout(): void {
+    const refreshToken = this.getRefreshToken();
+    if (refreshToken){
+      this.httpClient.post(this.LOGOUT_URL, { refresh_token: refreshToken}).subscribe(
+        () => this.eliminarCookies(),
+        () => this.eliminarCookies() //Si hay un error, igual eliminamos cookies
+
+      );
+    } else {
+      this.eliminarCookies();
+    }
   }
 }

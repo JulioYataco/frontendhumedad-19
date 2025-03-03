@@ -39,6 +39,7 @@ export class DefaultComponent {
 
   recentOrder = tableData;
 
+  //Cards pequeños en la parte de arriiba
   AnalyticEcommerce = [
     {
       title: 'Total Page Views',

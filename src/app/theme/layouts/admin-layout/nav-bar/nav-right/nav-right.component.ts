@@ -27,6 +27,7 @@ import {
 } from '@ant-design/icons-angular/icons';
 import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { AuthService } from 'src/app/core/services/login/auth.service';
 
 @Component({
   selector: 'app-nav-right',
@@ -42,7 +43,8 @@ export class NavRightComponent {
   windowWidth: number;
   screenFull: boolean = true;
 
-  constructor() {
+  constructor(private authService: AuthService) {
+
     this.windowWidth = window.innerWidth;
     this.iconService.addIcon(
       ...[
@@ -65,6 +67,11 @@ export class NavRightComponent {
         WalletOutline
       ]
     );
+  }
+
+  //Agregamos el metoodo logout
+  logout(): void{
+    this.authService.logout();
   }
 
   profile = [
