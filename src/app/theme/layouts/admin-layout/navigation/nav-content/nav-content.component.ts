@@ -13,16 +13,18 @@ import { NavGroupComponent } from './nav-group/nav-group.component';
 import { IconService } from '@ant-design/icons-angular';
 import {
   DashboardOutline,
-  CreditCardOutline,
-  LoginOutline,
-  QuestionOutline,
-  ChromeOutline,
-  FontSizeOutline,
-  ProfileOutline,
-  BgColorsOutline,
-  AntDesignOutline
+  // CreditCardOutline,
+  // LoginOutline,
+  // QuestionOutline,
+  // ChromeOutline,
+  // FontSizeOutline,
+  // ProfileOutline,
+  // BgColorsOutline,
+  // AntDesignOutline
 } from '@ant-design/icons-angular/icons';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { AuthService } from 'src/app/core/services/login/auth.service';
+// import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-nav-content',
@@ -34,6 +36,9 @@ export class NavContentComponent implements OnInit {
   private location = inject(Location);
   private locationStrategy = inject(LocationStrategy);
   private iconService = inject(IconService);
+  private authService = inject(AuthService); // Inyectamos servicio de autenticación
+
+  sidebarVisible: boolean = true; // Define la propiedad aquí
 
   // public props
   NavCollapsedMob = output();
@@ -50,19 +55,13 @@ export class NavContentComponent implements OnInit {
   // Constructor
   constructor() {
     this.iconService.addIcon(
-      ...[
-        DashboardOutline,
-        CreditCardOutline,
-        FontSizeOutline,
-        LoginOutline,
-        ProfileOutline,
-        BgColorsOutline,
-        AntDesignOutline,
-        ChromeOutline,
-        QuestionOutline
-      ]
+      ...[DashboardOutline]
     );
-    this.navigations = NavigationItems;
+    
+    //Obtenemos el rol de usuario autenticado
+    const userRole = this.authService.getUserRole() || 'guest';
+    
+    this.navigations = this.getNavigationForRole(userRole);
   }
 
   // Life cycle events
@@ -70,6 +69,15 @@ export class NavContentComponent implements OnInit {
     if (this.windowWidth < 1025) {
       (document.querySelector('.coded-navbar') as HTMLDivElement).classList.add('menupos-static');
     }
+  }
+
+  private getNavigationForRole(userRole: string): NavigationItem[] {
+    return NavigationItems.map(group => ({
+      ...group,
+      children: group.children?.filter(item => 
+        !item.rolesPermitidos || item.rolesPermitidos.includes(userRole) // Si no tiene roles, es visible para todos
+      )
+    })).filter(group => group.children && group.children.length > 0);
   }
 
   fireOutClick() {

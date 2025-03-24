@@ -1,38 +1,43 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IFundo } from 'src/app/core/models/ifundo';
 import { FundosService } from 'src/app/core/services/entidades/fundos/fundos.service';
-import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
+import { SHARED_FORMULARIOS_IMPORTS } from 'src/app/shared/shared-imports';
+import { BaseMetodosCrud } from '../baseMetodosCrud.component';
+import { ISedes } from 'src/app/core/models/isedes';
+import { SedesService } from 'src/app/core/services/entidades/sedes/sedes.service';
 
-import { TableModule } from 'primeng/table';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { RippleModule } from 'primeng/ripple';
-import { BaseCrudComponent } from '../baseCrudComponent.component';
 
 @Component({
   selector: 'app-fundos',
-  imports: [
-    CommonModule,         //Importa funciones basicas ngIf, ngFor, ngClass, etc.
-    FormsModule,          //Habilita el uso de ngModel para hacer formularios basados en planillas
-    ReactiveFormsModule,  //Para manejar formularios reactivos
-    InputTextModule,      //Permite usar pinputText para mejorar la apariencia de los inputs
-    ButtonModule,         //Permite usar pButton
-    TableModule,          //Permite usar <p-table></p-table> para mostrar datos dinamicamente
-    DialogModule,          //Permite usar <p-dialog></p-dialog>
-    CardComponent,         //Permite usar <app-card></app-card>
-    RippleModule
-  ],
+  imports: [SHARED_FORMULARIOS_IMPORTS],
   templateUrl: './fundos.component.html',
-  styleUrl: './fundos.component.scss'
+  styleUrl: '../../shared/base-crud/base-crud.component.scss'
 })
-export class FundosComponent extends BaseCrudComponent<IFundo>{
+export class FundosComponent extends BaseMetodosCrud<IFundo>{
   
-  constructor(protected override modeloService: FundosService){
+  sedes: ISedes[] = [];
+
+  constructor(
+    protected override modeloService: FundosService,
+    private sedesService: SedesService
+  ){
     super(modeloService);
-    this.tituloFormulario = 'Fundos';
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.obtenerSedes();
+  }
+
+  obtenerSedes(): void {
+    this.sedesService.getAll().subscribe(sedes => {
+      this.sedes = sedes;
+    })
+  }
+
+  obtenerNombreSede(idsede: number): string {
+    const sede = this.sedes.find(l => l.id === idsede);
+    return sede ? sede.nombre_sede : 'Desconocido';
   }
 
   // fundos: IFundo[] = [];

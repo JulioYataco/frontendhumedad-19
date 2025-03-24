@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LecturasHumedadComponent } from './lecturas-humedad.component';
+import { RangoGuiasComponent } from './rango-guias.component';
 
-describe('LecturasHumedadComponent', () => {
-  let component: LecturasHumedadComponent;
-  let fixture: ComponentFixture<LecturasHumedadComponent>;
+describe('RangoGuiasComponent', () => {
+  let component: RangoGuiasComponent;
+  let fixture: ComponentFixture<RangoGuiasComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LecturasHumedadComponent]
+      imports: [RangoGuiasComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LecturasHumedadComponent);
+    fixture = TestBed.createComponent(RangoGuiasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

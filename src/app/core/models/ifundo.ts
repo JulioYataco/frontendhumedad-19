@@ -1,5 +1,5 @@
 export interface IFundo {
-    id?: number;
+    id: number;
     sede: number;
     nombre_fundo: string;
 }

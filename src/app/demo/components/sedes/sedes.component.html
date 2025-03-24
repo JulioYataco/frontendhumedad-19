@@ -1,55 +1,88 @@
-<!---->
-<div class="row">
-    <div class="col-sm-12">
-        <app-card cardTitle="Listado">
-            <div class="row g-1">
-                <div class="col-md-12 mb-3">
-                    <!-- Botón para abrir modal de nuevo producto -->
-                    <p-button label="Nuevo Fundo" icon="pi pi-plus" (click)="mostrarDialogo()"></p-button>
-                    <!-- Tabla -->                            
-                    <p-table [value]="lista" styleClass="p-datatable-striped">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th style="width: 10%; text-align: center;">ID</th>
-                                <th style="width: 20%; text-align: center;">UBIGEO</th>
-                                <th style="width: 40%; text-align: center;">NOMBRE DE SEDE</th>
-                                <th style="width: 40%; text-align: center;">DIRECCIÓN</th>
-                                <th style="width: 30%; text-align: center;">OPERACIONES</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-entidad>
-                            <tr>
-                                <td style="width: 10%; text-align: center;">{{entidad.id}}</td>
-                                <td style="width: 20%; text-align: center;">{{entidad.ubigeo}}</td>
-                                <td style="width: 40%; text-align: center;">{{entidad.nombre_sede}}</td>
-                                <td style="width: 40%; text-align: center;">{{entidad.direccion}}</td>
-                                <td style="width: 30%; text-align: center;">
-                                    <button pRipple pButton label="Editar" icon="pi pi-pencil" (click)="CargarDatosModal(entidad)" class="p-button-text p-button-sm"></button>
-                                    <button pRipple pButton label="Eliminar" icon="pi pi-trash" class="p-button-text p-button-sm p-button-danger" (click)="eliminar(entidad.id)"></button>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-            </div>
-        </app-card>
-    </div>
+<p-confirmdialog></p-confirmdialog>
+<p-toast></p-toast>
+<div class="crud-container">
+    <p-toolbar Class="mb-6">
+      <ng-template #start>
+        <p-button label="Nuevo" variant="text" severity="success" icon="pi pi-plus" [raised]="true" (click)="mostrarDialogo()" />
+      </ng-template>
+      <ng-template #end>
+        <p-iconfield class="mr-2">
+          <p-inputicon styleClass="pi pi-search" />
+          <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar..." />
+        </p-iconfield>
+      </ng-template>
+    </p-toolbar>
+    
+    <!-- Tabla -->                            
+    <p-table 
+        #dt 
+        [value]="lista" 
+        [rows]="5" 
+        [paginator]="true" 
+        [globalFilterFields]="['id', 'uigeo', 'nombre_sede', 'direccion']"
+        [tableStyle]="{ 'min-width': '75rem' }" 
+        [rowsPerPageOptions]="[5, 10, 20]" 
+        [rowHover]="true"
+        dataKey="id"
+        [showCurrentPageReport]="true"
+        >
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="id">ID <p-sortIcon field="id" /></th>
+            <th pSortableColumn="ubigeo">UBIGEO <p-sortIcon field="ubigeo" /></th>
+            <th pSortableColumn="nombre_sede">NOMBRE DE SEDE <p-sortIcon field="nombre_sede" /></th>
+            <th pSortableColumn="direccion">DIRECCIÓN <p-sortIcon field="direccion" /></th>
+            <th >OPERACIONES</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-entidad>
+            <tr>
+                <td>{{entidad.id}}</td>
+                <td>{{obtenerNombreUbigeo(entidad.ubigeo)}}</td>
+                <td>{{entidad.nombre_sede}}</td>
+                <td>{{entidad.direccion}}</td>
+                <td>
+                  <p-button icon="pi pi-pencil" variant="text" severity="warn" class="mr-2" [raised]="true" (click)="CargarDatosModal(entidad)"></p-button>
+                  <p-button icon="pi pi-trash" variant="text" severity="danger" [raised]="true" (click)="eliminar(entidad.id)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+        <!--<ng-template #summary>
+            <div class="flex items-center justify-between">En total hay  {{ entidad ? entidad.length : 0 }} entidad.</div>
+        </ng-template> -->
+    </p-table>
 </div>
 
 
 <!-- Modal para agregar o editar producto -->
-<p-dialog [(visible)]="displayModal" [modal]="true" header="Formulario">
-  <div class="p-fluid">
-    <label for="ubigeo">fundo</label>
-    <input id="ubigeo" type="text" pInputText [(ngModel)]="entidad.ubigeo" />
-
-    <label for="nombre_sede">nombre_sede</label>
-    <input id="nombre_sede" type="text" pInputText [(ngModel)]="entidad.nombre_sede" />
-
-
-    <label for="direccion">direccion</label>
-    <input id="direccion" type="text" pInputText [(ngModel)]="entidad.direccion" />
-
-    <button pButton label="Guardar" (click)="guardar()" class="p-mt-3"></button>
-  </div>
+<p-dialog [(visible)]="displayModal" [style]="{ width: '450px' }" [modal]="true" header="Formulario">
+    <ng-template #content>
+        <div class="flex flex-col gap-6">
+            <div>
+                <label for="ubigeo" class="block font-bold mb-3">UBIGEO</label>
+                <!--1. usa la lista de lotes obtenidas en el component. 2.Muestra el valor extreno para el usuario en este caso nombre de lote. 3. optionValue="id" guarda el id del lote en la entidad 4. ngModel sigue guardando el ID en la entidad-->
+                <p-dropdown fluid
+                  [options]="ubigeos" 
+                  optionLabel="ubigeocompleto" 
+                  optionValue="ubigeo" 
+                  [(ngModel)]="entidad.ubigeo" 
+                  placeholder="Seleccione un distrito">
+                </p-dropdown>
+            </div>
+            <div>
+                <label for="nombre_sede" class="block font-bold mb-3">Sede</label>
+                <input id="nombre_sede" type="text" pInputText [(ngModel)]="entidad.nombre_sede" fluid/>
+            </div>
+            <div>
+                <label for="direccion" class="block font-bold mb-3">Dirección</label>
+                <input id="direccion" type="text" pInputText [(ngModel)]="entidad.direccion" fluid/>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #footer>
+      <p-button label="Cancel" icon="pi pi-times" text (click)="cerrarDialogo()" />
+      <p-button label="Guardar" icon="pi pi-check" (click)="guardar()" />
+    </ng-template>
 </p-dialog>
+                            

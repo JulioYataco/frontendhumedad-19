@@ -1,69 +1,133 @@
-<!---->
-<div class="row">
-    <div class="col-sm-12">
-        <app-card cardTitle="Listado" >
-            <div class="row g-1">
-                <div class="col-md-12 mb-3">
-                    <!-- Botón para abrir modal de nuevo producto -->
-                    <p-button label="Nuevo" icon="pi pi-plus" (click)="mostrarDialogo()"></p-button>
-                    <!-- Tabla -->                            
-                    <p-table [value]="lista" styleClass="p-datatable-striped">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th style="width: auto; text-align: center;">ID</th>
-                                <th style="width: auto; text-align: center;">PROCESADOR</th>
-                                <th style="width: auto; text-align: center;">SUBLOTE</th>
-                                <th style="width: auto; text-align: center;">VARIEDAD</th>
-                                <th style="width: auto; text-align: center;">TIPO SUELO</th>
-                                <th style="width: auto; text-align: center;">VARIEDAD RAICES</th>
-                                <th style="width: auto; text-align: center;">EDAD</th>
-                                <th style="width: auto; text-align: center;">OPERACIONES</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-entidad>
-                            <tr>
-                                <td style="width: auto; text-align: center;">{{entidad.id}}</td>
-                                <td style="width: auto; text-align: center;">{{entidad.procesador}}</td>
-                                <td style="width: auto; text-align: center;">{{entidad.sublote}}</td>
-                                <td style="width: auto; text-align: center;">{{entidad.variedad}}</td>
-                                <td style="width: auto; text-align: center;">{{entidad.tipo_suelo}}</td>
-                                <td style="width: auto; text-align: center;">{{entidad.variedad_raiz}}</td>
-                                <td style="width: auto; text-align: center;">{{entidad.edad}}</td>
-                                <td style="width: auto; text-align: center;">
-                                    <button pRipple pButton label="Editar" icon="pi pi-pencil" (click)="CargarDatosModal(entidad)" class="p-button-text p-button-sm"></button>
-                                    <button pRipple pButton label="Eliminar" icon="pi pi-trash" class="p-button-text p-button-sm p-button-danger" (click)="eliminar(entidad.id)"></button>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-            </div>
-        </app-card>
-    </div>
+<p-confirmdialog />
+<p-toast />
+<div class="crud-container">
+    <p-toolbar Class="mb-6">
+        <ng-template #start>
+            <p-button label="Nuevo" variant="text" severity="success" icon="pi pi-plus" [raised]="true" (click)="mostrarDialogo()" />
+        </ng-template>
+        <ng-template #end>
+            <p-iconfield class="mr-2">
+                <p-inputicon styleClass="pi pi-search" />
+                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar..." />
+            </p-iconfield>
+        </ng-template>
+    </p-toolbar>
+    
+    <!-- Tabla -->                            
+    <p-table 
+        #dt 
+        [value]="lista" 
+        [rows]="5" 
+        [paginator]="true" 
+        [globalFilterFields]="['id', 'procesador', 'sublote', 'variedad', 'tipo_suelo', 'variedad_raiz', 'edad']"
+        [tableStyle]="{ 'min-width': '75rem' }" 
+        [rowsPerPageOptions]="[5, 10, 20]" 
+        [rowHover]="true"
+        dataKey="id"
+        [showCurrentPageReport]="true"
+        >
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">ID <p-sortIcon field="id" /></th>
+                <th pSortableColumn="procesador">PROCESADOR <p-sortIcon field="procesador" /></th>
+                <th pSortableColumn="sublote">SUBLOTE <p-sortIcon field="sublote" /></th>
+                <th pSortableColumn="variedad">VARIEDAD <p-sortIcon field="variedad" /></th>
+                <th pSortableColumn="tipo_suelo">TIPO SUELO <p-sortIcon field="tipo_suelo" /></th>
+                <th pSortableColumn="variedad_raiz">VARIEDAD RAICES <p-sortIcon field="variedad_raiz" /></th>
+                <th pSortableColumn="edad">EDAD <p-sortIcon field="edad" /></th>
+                <th >OPERACIONES</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-entidad>
+            <tr>
+                <td>{{entidad.id}}</td>
+                <td>{{obtenerNombreProcesador(entidad.procesador)}}</td>
+                <td>{{obtenerNombreSublote(entidad.sublote)}}</td>
+                <td>{{obtenerNombreVariedad(entidad.variedad)}}</td>
+                <td>{{obtenerNombreTipoSuelo(entidad.tipo_suelo)}}</td>
+                <td>{{obtenerNombreVariedadRaices(entidad.variedad_raiz)}}</td>
+                <td>{{entidad.edad}}</td>
+                <td>
+                    <p-button icon="pi pi-pencil" variant="text" severity="warn" class="mr-2" [raised]="true" (click)="CargarDatosModal(entidad)"></p-button>
+                    <p-button icon="pi pi-trash" variant="text" severity="danger" [raised]="true" (click)="eliminar(entidad.id)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+        <!--<ng-template #summary>
+            <div class="flex items-center justify-between">En total hay  {{ entidad ? entidad.length : 0 }} entidad.</div>
+        </ng-template> -->
+    </p-table>
 </div>
 
 
 <!-- Modal para agregar o editar producto -->
-<p-dialog [(visible)]="displayModal" [modal]="true" header="Formulario">
-  <div class="p-fluid">
-    <label for="procesador">procesador</label>
-    <input id="procesador" type="text" pInputText [(ngModel)]="entidad.procesador" />
-
-    <label for="sublote">sublote</label>
-    <input id="sublote" type="text" pInputText [(ngModel)]="entidad.sublote" />
-
-<label for="variedad">variedad</label>
-    <input id="variedad" type="text" pInputText [(ngModel)]="entidad.variedad" />
-
-<label for="tipo_suelo">tipo suelo</label>
-    <input id="tipo_suelo" type="text" pInputText [(ngModel)]="entidad.tipo_suelo" />
-
-<label for="variedad_raiz">Variedad raiz</label>
-    <input id="variedad_raiz" type="text" pInputText [(ngModel)]="entidad.variedad_raiz" />
-
-<label for="edad">Edad</label>
-    <input id="edad" type="text" pInputText [(ngModel)]="entidad.edad" />
-
-    <button pButton label="Guardar" (click)="guardar()" class="p-mt-3"></button>
-  </div>
+<p-dialog [(visible)]="displayModal" [style]="{ width: '450px' }" [modal]="true" header="Formulario">
+    <ng-template #content>
+        <div class="flex flex-col gap-6">
+            <div>
+                <label for="procesador" class="block font-bold mb-3">procesador</label>
+                <p-dropdown fluid
+                    [options]="procesadores" 
+                    optionLabel="codigo" 
+                    optionValue="id" 
+                    [(ngModel)]="entidad.procesador" 
+                    placeholder="Seleccione un procesador">
+                </p-dropdown>
+            </div>
+            <div>
+                <label for="sublote" class="block font-bold mb-3">sublote</label>
+                <p-dropdown fluid
+                    [options]="sublotes" 
+                    optionLabel="nombre_sublote" 
+                    optionValue="id" 
+                    [(ngModel)]="entidad.sublote" 
+                    placeholder="Seleccione un sublote">
+                </p-dropdown>
+            </div>
+            <div>
+                <label for="variedad" class="block font-bold mb-3">variedad</label>
+                <p-dropdown fluid
+                    [options]="variedades" 
+                    optionLabel="nombre_variedad" 
+                    optionValue="id" 
+                    [(ngModel)]="entidad.variedad" 
+                    placeholder="Seleccione una variedad">
+                </p-dropdown>
+            </div>
+            <div>
+                <label for="tipo_suelo" class="block font-bold mb-3">tipo suelo</label>
+                <p-dropdown fluid
+                    [options]="tipoSuelos" 
+                    optionLabel="nombre_tipo_suelo" 
+                    optionValue="id" 
+                    [(ngModel)]="entidad.tipo_suelo" 
+                    placeholder="Seleccione un tipo de suelo">
+                </p-dropdown>
+            </div>
+            <div>
+                <label for="variedad_raiz" class="block font-bold mb-3">Variedad raiz</label>
+                <p-dropdown fluid
+                    [options]="variedadRaices" 
+                    optionLabel="nombre_variedad_raiz" 
+                    optionValue="id" 
+                    [(ngModel)]="entidad.variedad_raiz" 
+                    placeholder="Seleccione una variedad de raiz">
+                </p-dropdown>
+            </div>
+            
+            <div>
+                <label for="edad" class="block font-bold mb-3">edad</label>
+                <input id="edad" type="text" pInputText [(ngModel)]="entidad.edad" fluid/>
+            </div>
+        
+        </div>
+    </ng-template>
+    <ng-template #footer>
+        <p-button label="Cancel" icon="pi pi-times" text (click)="cerrarDialogo()" />
+        <p-button label="Guardar" icon="pi pi-check" (click)="guardar()" />
+    </ng-template>
 </p-dialog>
+
+
+    

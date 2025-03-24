@@ -16,6 +16,8 @@ export interface NavigationItem {
   link?: string;
   description?: string;
   path?: string;
+  rolesPermitidos?: string[];  // <-- Nueva propiedad
+
 }
 
 export const NavigationItems: NavigationItem[] = [
@@ -25,15 +27,16 @@ export const NavigationItems: NavigationItem[] = [
     type: 'group',
     icon: 'icon-navigation',
     children: [
-      {
-        id: 'default',
-        title: 'Default',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/dashboard/default',
-        icon: 'dashboard',
-        breadcrumbs: false
-      },
+      // {
+      //   id: 'default',
+      //   title: 'Default',
+      //   type: 'item',
+      //   classes: 'nav-item',
+      //   url: '/dashboard/default',
+      //   icon: 'dashboard',
+      //   breadcrumbs: false,
+      //   rolesPermitidos: ['Jefe Fundo'],
+      // },
       {
         id: 'lecturashumedad',
         title: 'Lecturas de Humedad',
@@ -41,7 +44,8 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         url: '/lecturashumedad',
         icon: 'dashboard',
-        breadcrumbs: false
+        breadcrumbs: false,
+        rolesPermitidos: ['Jefe Fundo'],
       }
     ]
   },
@@ -58,7 +62,17 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/roles',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
+      },
+      {
+        id: 'rango_guias',
+        title: 'Rangos Guias',
+        type: 'item',
+        url: '/rango_guias',
+        classes: 'nav-item',
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
       },
       {
         id: 'sedes',
@@ -66,7 +80,8 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/sedes',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
       },
       {
         id: 'fundos',
@@ -74,7 +89,8 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/fundos',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
       },
       {
         id: 'lotes',
@@ -82,7 +98,8 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/lotes',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
       },
       {
         id: 'sublotes',
@@ -90,7 +107,8 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/sublotes',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
       },
       {
         id: 'cultivos',
@@ -98,7 +116,8 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/cultivos',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
       },
       {
         id: 'variedades',
@@ -106,7 +125,8 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/variedades',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
       },
       {
         id: 'tipo-suelos',
@@ -114,7 +134,8 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/tipos-suelos',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
       },
       {
         id: 'fenologias',
@@ -122,7 +143,8 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/fenologias',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
       },
       {
         id: 'variedad-raices',
@@ -130,7 +152,8 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/variedad-raices',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile', 
+        rolesPermitidos: ['Administrador'],
       },
       {
         id: 'detalle-raices',
@@ -138,7 +161,8 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/detalle-raices',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
       },
       {
         id: 'procesadores',
@@ -146,7 +170,8 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/procesadores',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
       },
       {
         id: 'configuracion_proces',
@@ -154,70 +179,9 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/configuracion_procesadores',
         classes: 'nav-item',
-        icon: 'profile'
+        icon: 'profile',
+        rolesPermitidos: ['Administrador'],
       },
     ]
   },
-
-  // {
-  //   id: 'utilities',
-  //   title: 'UI Components',
-  //   type: 'group',
-  //   icon: 'icon-navigation',
-  //   children: [
-  //     {
-  //       id: 'typography',
-  //       title: 'Typography',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: '/typography',
-  //       icon: 'font-size'
-  //     },
-  //     {
-  //       id: 'color',
-  //       title: 'Colors',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: '/color',
-  //       icon: 'bg-colors'
-  //     },
-  //     {
-  //       id: 'tabler',
-  //       title: 'Tabler',
-  //       type: 'item',
-  //       classes: 'nav-item',
-  //       url: 'https://ant.design/components/icon',
-  //       icon: 'ant-design',
-  //       target: true,
-  //       external: true
-  //     }
-  //   ]
-  // },
-
-  {
-    id: 'other',
-    title: 'Other',
-    type: 'group',
-    icon: 'icon-navigation',
-    children: [
-      {
-        id: 'sample-page',
-        title: 'Sample Page',
-        type: 'item',
-        url: '/sample-page',
-        classes: 'nav-item',
-        icon: 'chrome'
-      },
-      {
-        id: 'document',
-        title: 'Document',
-        type: 'item',
-        classes: 'nav-item',
-        url: 'https://codedthemes.gitbook.io/mantis-angular/',
-        icon: 'question',
-        target: true,
-        external: true
-      }
-    ]
-  }
 ];

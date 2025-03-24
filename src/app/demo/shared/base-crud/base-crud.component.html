@@ -1,0 +1,65 @@
+<p-confirmdialog></p-confirmdialog>
+<p-toast></p-toast>
+
+<div class="crud-container">
+    <p-toolbar class="mb-6">
+      <ng-template #start>
+        <p-button label="Nuevo" variant="text" severity="success" icon="pi pi-plus" [raised]="true" (click)="mostrarDialogo()"></p-button>
+      </ng-template>
+      <ng-template #end>
+        <p-iconfield class="mr-2">
+          <p-inputicon styleClass="pi pi-search"></p-inputicon>
+          <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar...">
+        </p-iconfield>
+      </ng-template>
+    </p-toolbar>
+    
+    <!-- Tabla generada dinámicamente -->
+    <p-table 
+      #dt 
+      [value]="lista" 
+      [rows]="5" 
+      [paginator]="true" 
+      [tableStyle]="{'min-width': '75rem'}" 
+      [rowsPerPageOptions]="[5,10,20]" 
+      [rowHover]="true" 
+      dataKey="id" 
+      [showCurrentPageReport]="true"
+      >
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let col of columns" pSortableColumn="{{col.field}}">
+            {{ col.header }}
+            <p-sortIcon field="{{col.field}}"></p-sortIcon>
+          </th>
+          <th>OPERACIONES</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td *ngFor="let col of columns">
+            {{ item[col.field] }}
+          </td>
+          <td>
+            <p-button icon="pi pi-pencil" variant="text" severity="warn" class="mr-2" [raised]="true" (click)="CargarDatosModal(item)"></p-button>
+            <p-button icon="pi pi-trash" variant="text" severity="danger" [raised]="true" (click)="eliminar(item.id)"></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+</div>
+
+<!-- Modal -->
+<p-dialog [(visible)]="displayModal" [style]="{ width: '450px' }" [modal]="true" header="Formulario">
+  <ng-template #content>
+    <div class="flex flex-col gap-6">
+      <div *ngFor="let campo of formFields">
+        <label [for]="campo.field" class="block font-bold mb-3">{{ campo.label }}</label>
+        <input [id]="campo.field" type="text" pInputText [(ngModel)]="entidad[campo.field]" fluid/>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #footer>
+    <p-button label="Guardar" icon="pi pi-check" (click)="guardar()"></p-button>
+  </ng-template>
+</p-dialog>

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../login/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,11 @@ import { environment } from 'src/environments/environment';
 export class BaseGenericoService<T> { //con T inidicamos que la clase es generica
   private httpClient = inject(HttpClient);
   private apiUrl: string; //para guardar la url
-  
+  private authService = inject(AuthService);
+
   init(rutaEntidad: string){
     this.apiUrl = `${environment.apiUrl}/${rutaEntidad}`;
+    console.log('API URL inicializada:', this.apiUrl);
   }
 
   private headers = new HttpHeaders({ //la clase httpHeaders permite definir encabezados
@@ -31,14 +34,36 @@ export class BaseGenericoService<T> { //con T inidicamos que la clase es generic
   }
 
   create(data: Partial<T>): Observable<T> {
+    //Obten el usuario autenticado
+    const usuario = this.authService.getUserDetalle();
+    if (usuario) {
+      //Agregamos el id del usuario al objeto que se envia al backend
+      data = { ...data, usuario_crea: usuario.id};
+      console.log('Data de create:',data);
+    }
     return this.httpClient.post<T>(`${this.apiUrl}/`, data);
   }
 
   update(id: number, data: Partial<T>): Observable<T> {
+    //Obten el usuario autenticado
+    const usuario = this.authService.getUserDetalle();
+    if (usuario) {
+      //Agregamos el id del usuario al objeto que se envia al backend
+      data = {...data, usuario_mod: usuario.id};
+    }
     return this.httpClient.put<T>(`${this.apiUrl}/${id}/`, data);
   }
 
   delete(id: number): Observable<void> {
+    const usuario = this.authService.getUserDetalle();
+    if (usuario) {
+      const data = {
+        fecha_baja: new Date().toISOString(),
+        usuario_baja: usuario.id
+      };
+      console.log('datos eliminados:',data);
+      return this.httpClient.patch<void>(`${this.apiUrl}/${id}/`, data); //Usamos el PATCH para actualizar solo 'usuario_baja'
+    }
     return this.httpClient.delete<void>(`${this.apiUrl}/${id}/`);
   }
 

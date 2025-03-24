@@ -43,7 +43,7 @@ export class NavRightComponent {
   windowWidth: number;
   screenFull: boolean = true;
 
-  constructor(private authService: AuthService) {
+  constructor(public authService: AuthService) {
 
     this.windowWidth = window.innerWidth;
     this.iconService.addIcon(
@@ -74,45 +74,45 @@ export class NavRightComponent {
     this.authService.logout();
   }
 
-  profile = [
-    {
-      icon: 'edit',
-      title: 'Edit Profile'
-    },
-    {
-      icon: 'user',
-      title: 'View Profile'
-    },
-    {
-      icon: 'profile',
-      title: 'Social Profile'
-    },
-    {
-      icon: 'wallet',
-      title: 'Billing'
-    }
-  ];
+  // profile = [
+  //   {
+  //     icon: 'edit',
+  //     title: 'Edit Profile'
+  //   },
+  //   {
+  //     icon: 'user',
+  //     title: 'View Profile'
+  //   },
+  //   {
+  //     icon: 'profile',
+  //     title: 'Social Profile'
+  //   },
+  //   {
+  //     icon: 'wallet',
+  //     title: 'Billing'
+  //   }
+  // ];
 
-  setting = [
-    {
-      icon: 'question-circle',
-      title: 'Support'
-    },
-    {
-      icon: 'user',
-      title: 'Account Settings'
-    },
-    {
-      icon: 'lock',
-      title: 'Privacy Center'
-    },
-    {
-      icon: 'comment',
-      title: 'Feedback'
-    },
-    {
-      icon: 'unordered-list',
-      title: 'History'
-    }
-  ];
+  // setting = [
+  //   {
+  //     icon: 'question-circle',
+  //     title: 'Support'
+  //   },
+  //   {
+  //     icon: 'user',
+  //     title: 'Account Settings'
+  //   },
+  //   {
+  //     icon: 'lock',
+  //     title: 'Privacy Center'
+  //   },
+  //   {
+  //     icon: 'comment',
+  //     title: 'Feedback'
+  //   },
+  //   {
+  //     icon: 'unordered-list',
+  //     title: 'History'
+  //   }
+  // ];
 }

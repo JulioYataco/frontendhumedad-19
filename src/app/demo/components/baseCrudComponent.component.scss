@@ -1,0 +1,72 @@
+.crud-container {
+    width: 100%; // Ocupará el 90% de la pantalla
+    //max-width: 1200px; // No se expandirá demasiado en pantallas grandes
+    margin:20px auto;
+    padding: 25px;
+    background: var(--p-surface-900);
+    border-radius: 8px;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0px 10px rgba(78, 209, 66, 0.1);
+
+    @media (max-width: 768px) {
+        width: 95%; // Más ancho en móviles
+        padding: 10px;
+    }
+}
+
+::ng-deep .p-toolbar {
+    margin-bottom: 1.5rem;
+}
+
+::ng-deep .p-button .coloredit {
+    background: #da790b
+}
+
+// .p-toolbar {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     flex-wrap: wrap;
+//     padding: var(--p-toolbar-padding);
+//     background: var(--p-surface-800);
+//     border: 1px solid var(--p-surface-700);
+//     color: var(--p-surface-0);
+//     border-radius: var(--p-border-radius-md);
+//     gap: 0.5rem;
+// }
+  
+//Formulario
+// .form-group {
+//     margin-bottom: 15px;
+// }
+  
+// .form-group label {
+//     font-weight: bold;
+//     display: block;
+//     margin-bottom: 5px;
+// }
+  
+// p-button {
+//     margin-right: 10px;
+// }
+
+//Tabla
+//::ng-deep : Permite que el estilo atraviese la encapsulación de Angular
+::ng-deep .p-datatable-thead > tr > th { //.p-datatable-thead: Clase que PrimeNG usa para la cabecera de la tabla
+    //background: #f8f9fa; // Color de fondo de encabezado
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+::ng-deep .p-datatable-tbody > tr > td {
+    padding: 10px;
+    text-align: center;
+    //border-bottom: 1px solid #ddd;
+}
+
+
+// ::ng-deep .p-paginator {
+//     justify-content: center; // Centrar la paginación
+// }
+  

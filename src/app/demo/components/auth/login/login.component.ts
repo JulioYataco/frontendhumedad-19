@@ -1,12 +1,13 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { CheckboxModule } from 'primeng/checkbox';
 import { AuthService } from 'src/app/core/services/login/auth.service';
+import { SHARED_FORMULARIOS_IMPORTS } from 'src/app/shared/shared-imports';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CommonModule],
+  imports: [SHARED_FORMULARIOS_IMPORTS, CheckboxModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -15,13 +16,29 @@ export default class LoginComponent {
   username: string = "";
   password: string = "";
 
+  visible: boolean = false;
+
   //Constructor para inyectar el service que creamos
-  constructor(private authService: AuthService, private router: Router){}
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
   login(): void{
     this.authService.login(this.username, this.password).subscribe({
-      next: ()=> this.router.navigate(['/dashboard/default']),
-      error: (err) => console.error("login fallido", err)
-    })
+      next: (response) => {
+        if (response.access_token) {
+          this.router.navigate(['/lecturashumedad']);
+        }
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Usuario o contraseña incorrecta',
+        });
+      },
+    });
   }
 }
