@@ -45,7 +45,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/lecturashumedad',
         icon: 'dashboard',
         breadcrumbs: false,
-        rolesPermitidos: ['Jefe Fundo'],
+        rolesPermitidos: ['Jefe Fundo', 'Super Usuario'],
       }
     ]
   },
@@ -63,7 +63,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/roles',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador', 'Super Usuario'],
       },
       {
         id: 'rango_guias',
@@ -72,7 +72,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/rango_guias',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador', 'Super Usuario'],
       },
       {
         id: 'sedes',
@@ -81,7 +81,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/sedes',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador', 'Super Usuario'],
       },
       {
         id: 'fundos',
@@ -90,7 +90,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/fundos',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador', 'Super Usuario'],
       },
       {
         id: 'lotes',
@@ -99,7 +99,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/lotes',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador', 'Super Usuario'],
       },
       {
         id: 'sublotes',
@@ -108,7 +108,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/sublotes',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador', 'Super Usuario'],
       },
       {
         id: 'cultivos',
@@ -117,7 +117,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/cultivos',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador', 'Super Usuario'],
       },
       {
         id: 'variedades',
@@ -126,7 +126,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/variedades',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador', 'Super Usuario'],
       },
       {
         id: 'tipo-suelos',
@@ -135,7 +135,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/tipos-suelos',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador', 'Super Usuario'],
       },
       {
         id: 'fenologias',
@@ -144,7 +144,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/fenologias',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador', 'Super Usuario'],
       },
       {
         id: 'variedad-raices',
@@ -153,7 +153,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/variedad-raices',
         classes: 'nav-item',
         icon: 'profile', 
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador', 'Super Usuario'],
       },
       {
         id: 'detalle-raices',
@@ -162,7 +162,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/detalle-raices',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador',  'Super Usuario'],
       },
       {
         id: 'procesadores',
@@ -171,7 +171,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/procesadores',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador',  'Super Usuario'],
       },
       {
         id: 'configuracion_proces',
@@ -180,7 +180,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/configuracion_procesadores',
         classes: 'nav-item',
         icon: 'profile',
-        rolesPermitidos: ['Administrador'],
+        rolesPermitidos: ['Administrador',  'Super Usuario'],
       },
     ]
   },

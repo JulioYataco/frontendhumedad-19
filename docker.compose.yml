@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  riegosmart-frontend:
+    container_name: riegosmart-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - VIRTUAL_HOST=rs.fitosatbeta.com
+      - LETSENCRYPT_HOST=rs.fitosatbeta.com
+      - LETSENCRYPT_EMAIL=admin@riegosmartbeta.com
+    networks:
+      - proxy
+networks:
+  proxy:
+    external: true
+    name: proxy

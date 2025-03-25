@@ -14,132 +14,87 @@ $border-radius: 12px;
 
 // Estilos generales
 .card {
-    //background: $background-card;
-    border-radius: $border-radius;
-    padding: 20px;
-    //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease-in-out;
+  //background: $background-card;
+  border-radius: $border-radius;
+  padding: 20px;
+  //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
 }
 
 // Tarjetas de promedios
 .avg-card {
   text-align: center;
-  padding: 15px;
+  padding: 1rem;
+  min-height: 120px; // Asegura altura mínima
   //background: $background-dark;
   border-radius: $border-radius;
   //box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
 
   .avg-title {
-    font-size: 14px;
-    font-weight: bold;
-    color: $secondary-text;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #495057;
   }
 
   .avg-value {
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #007bff;
   }
 }
 
 .descripcion-test {
   font-weight: bold;
-  font-size: 16px;
-  color: $secondary-text;
+  font-size:  0.9rem;
+  color: #6c757d;
 }
 
-// // Botones modernizados
-// .p-button {
-//   background: var(--surface-700);
-//   border-radius: $border-radius;
-//   transition: all 0.3s ease-in-out;
 
-//   &:hover {
-//       background: var(--surface-600);
-//   }
-// }
+//==================================================================================00
+// cards pequeños
+//==================================================================================00
 
-// // Inputs de fecha
-// input[type="datetime-local"] {
-//   border: 1px solid var(--surface-500);
-//   border-radius: 8px;
-//   padding: 6px;
-//   background: var(--surface-card);
-//   color: $primary-text;
-//   transition: all 0.3s ease-in-out;
-
-//   &:hover, &:focus {
-//       border-color: var(--primary-color);
-//   }
-// }
+.cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
 
 
-// // Modal de edición de rangos
-// .modal-body {
-//   display: flex;
-//   flex-direction: column;
-//   gap: 10px;
-// }
-
-// .range-item {
-//   display: flex;
-//   align-items: center;
-//   gap: 10px;
-//   background: var(--surface-800);
-//   padding: 8px;
-//   border-radius: $border-radius;
-// }
-
-// // Gráfico eCharts
-// .demo-chart {
-//   width: 100%;
-//   height: 550px;
-//   -webkit-tap-highlight-color: rgba(68, 58, 51, 1);
-// }
+//==================================================================================00
+// Gráfico eCharts
+//==================================================================================00
+.demo-chart {
+  width: 100%;
+  height: 550px;
+  min-height: 300px; // Evita que se deforme en pantallas pequeñas
+  -webkit-tap-highlight-color: rgba(68, 58, 51, 1);
+}
 
 
+// Agrega padding y un fondo limpio para destacar el gráfico.
+.main-card {
+  .card-body {
+    padding: 1rem;
+  }
+}
+
+::ng-deep .p-toolbar {
+  display: flex;
+  flex-wrap: wrap; // Permite que los elementos se acomoden en pantallas pequeñas
+  justify-content: space-between;
+  gap: 1rem; // Espaciado uniforme entre elementos
+  margin-bottom: 1.5rem;
+}
 
 
+.form-control {
+  margin: 0.25rem 0;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// * {
-//   margin: 0;
-//   padding: 0;
-// }
-// #main {
-//   position: relative;
-//   height: 85vh;
-//   //overflow: hidden;
-// }
-
-// p-button {
-//   padding-top: 10px;
-//   padding-bottom: 10px;
-//   padding-left: 10px;
-//   cursor: pointer;
-//   //border: 1px solid #ccc;
-//   //background-color: #f9f9f9;
-// }
-
-// p-button.active {
-//   background-color: #007bff;
-//   color: white;
-// }
 
 /* Estilo base para los botones (solo texto) */
 ::ng-deep .p-button {
@@ -176,10 +131,6 @@ $border-radius: 12px;
   }
 }
 
-::ng-deep .p-toolbar {
-  margin-bottom: 1.5rem;
-}
-
 .grid {
   display: flex;  /* Asegura flexbox */
   flex-wrap: nowrap; /* Evita que se vayan a la siguiente línea */
@@ -190,32 +141,6 @@ $border-radius: 12px;
   flex: 1; /* Asegura que ambas columnas ocupen el mismo espacio */
 }
 
-.p-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    //background: var(--p-surface-800);
-    border: 1px solid var(--p-surface-700);
-    //color: var(--p-surface-0);
-    border-radius: $border-radius;
-    gap: 0.5rem;
-}
-
-//Formulario
-// .form-group {
-//     margin-bottom: 15px;
-// }
-
-// .form-group label {
-//     font-weight: bold;
-//     display: block;
-//     margin-bottom: 5px;
-// }
-
-// p-button {
-//     margin-right: 10px;
-// }
 
 //Tabla
 //::ng-deep : Permite que el estilo atraviese la encapsulación de Angular
