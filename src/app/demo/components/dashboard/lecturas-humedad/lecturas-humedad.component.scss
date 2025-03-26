@@ -131,10 +131,15 @@ $border-radius: 12px;
   }
 }
 
+
+//===========================================================================
+// 4 CARDS PEQUEÑOS
+//===========================================================================
 .grid {
-  display: flex;  /* Asegura flexbox */
-  flex-wrap: nowrap; /* Evita que se vayan a la siguiente línea */
-  gap: 1rem; /* Espacio entre columnas */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+  gap: 1rem;
+  justify-content: center;
 }
 
 .col-6 {

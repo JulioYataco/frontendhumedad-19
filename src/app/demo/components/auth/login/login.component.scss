@@ -36,9 +36,24 @@
 
 }
 
+@media (min-width: 320px) {
+  .login-card {
+    width: 100%;  /* Ocupa el 70% del ancho en tablets */
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 425px) {
+  .login-card {
+    width: 80%;  /* Ocupa el 70% del ancho en tablets */
+    padding: 2.5rem;
+  }
+}
+
 @media (min-width: 768px) {
   .login-card {
     width: 70%;  /* Ocupa el 70% del ancho en tablets */
+    padding: 4rem;
   }
 }
 
@@ -103,6 +118,12 @@ label {
 @media (max-width: 480px) {
   .p-field input {
     font-size: 0.9rem;  /* Tamaño de fuente más pequeño en móviles */
+  }
+}
+
+@media (max-width: 320px) {
+  .p-field input {
+    font-size: 0.8rem;  /* Tamaño de fuente más pequeño en móviles */
   }
 }
 

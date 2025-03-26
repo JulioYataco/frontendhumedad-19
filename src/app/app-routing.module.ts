@@ -29,8 +29,8 @@ export const routes: Routes = [
       {
         path: 'lecturashumedad',
         loadComponent: () => import('./demo/components/dashboard/lecturas-humedad/lecturas-humedad.component').then((c) => c.LecturasHumedadComponent),
-        canActivate: [authGuard, rolGuard ], //rolGuard
-        data: { rol: ['Jefe Fundo', 'Super Usuario' ]} // Solo Administradores pueden acceder
+        //canActivate: [authGuard, rolGuard ], //rolGuard
+        //data: { rol: ['Jefe Fundo', 'Super Usuario' ]} // Solo Administradores pueden acceder
 
       },
       {
