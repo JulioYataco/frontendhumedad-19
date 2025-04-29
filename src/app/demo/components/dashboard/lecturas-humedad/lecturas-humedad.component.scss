@@ -44,10 +44,38 @@ $border-radius: 12px;
   }
 }
 
+
+//==================================================================================00
+// Texto info + seleccionanble
+//==================================================================================00
+
+.header-info {
+  display: flex;
+  justify-content: space-between; // Empuja los elementos a los extremos
+  align-items: center; // Alinea verticalmente en el centro
+  width: 100%; // Asegura que el div ocupe todo el ancho
+  gap: 1px; // Espacio entre elementos
+  flex-wrap: nowrap; // Evita que los elementos se vayan a otra línea
+}
+
+.custom-dropdown {
+  min-width: 200px; // Ajusta el tamaño del select
+  flex-grow: 1; // Ocupa el espacio disponible sin afectar el label
+}
+
+.dropdown-label {
+  white-space: nowrap; // Evita que el texto se rompa en varias líneas
+  font-weight: bold;
+  color: #333;
+}
+
 .descripcion-test {
   font-weight: bold;
   font-size:  0.9rem;
   color: #6c757d;
+  text-overflow: ellipsis; // Añade "..." si el texto es muy largo
+  text-overflow: ellipsis; // Añade "..." si el texto es muy largo
+
 }
 
 
@@ -63,23 +91,64 @@ $border-radius: 12px;
   gap: 16px;
 }
 
+//==================================================================================00
+// Fooder
+//==================================================================================00
+
+.contenedorFinal {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+  justify-content: center; /* Centra los botones */
+
+}
+
+.button-group p-button.selected {
+  //border: 2px solid orange !important;
+  font-weight: bold;
+}
+
+.filter-card {
+  background: #181818;
+  color: white;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .button-group {
+      flex-direction: column;
+      align-items: stretch;
+  }
+  
+  .grid {
+      flex-direction: column;
+  }
+}
 
 //==================================================================================00
 // Gráfico eCharts
 //==================================================================================00
 .demo-chart {
-  width: 100%;
-  height: 550px;
-  min-height: 300px; // Evita que se deforme en pantallas pequeñas
-  -webkit-tap-highlight-color: rgba(68, 58, 51, 1);
+  width: 100% !important;  /* Fuerza el ancho completo */
+  //height: 400px; /* Altura fija, pero puedes usar vh si prefieres */
+  //min-height: 400px; /* Mínimo para móviles */
+  resize: both; /* Permite redimensionar (opcional) */
+  height: 100vh;  /* Altura relativa al viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
-// Agrega padding y un fondo limpio para destacar el gráfico.
-.main-card {
-  .card-body {
-    padding: 1rem;
+@media (min-width: 320px) {
+  .demo-chart {
+    width: 100%;  /* Ocupa el 70% del ancho en tablets */
+    //padding: 2rem;
   }
+}
+
+.main-card {
+  width: 100%;  /* Asegura que la tarjeta ocupe todo el ancho disponible */
 }
 
 ::ng-deep .p-toolbar {
@@ -131,10 +200,14 @@ $border-radius: 12px;
   }
 }
 
+//===========================================================================
+// 4 CARDS PEQUEÑOS
+//===========================================================================
 .grid {
-  display: flex;  /* Asegura flexbox */
-  flex-wrap: nowrap; /* Evita que se vayan a la siguiente línea */
-  gap: 1rem; /* Espacio entre columnas */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+  gap: 1rem;
+  justify-content: center;
 }
 
 .col-6 {

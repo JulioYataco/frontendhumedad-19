@@ -1,15 +1,14 @@
 <p-confirmdialog />
 <p-toast />
-<div class="crud-container">
-    <p-toolbar Class="mb-6">
+<div class="card">
+    <p-toolbar Class="mb-4">
         <ng-template #start>
             <p-button label="Nuevo" variant="text" severity="success" icon="pi pi-plus" [raised]="true" (click)="mostrarDialogo()" />
         </ng-template>
         <ng-template #end>
-            <p-iconfield class="mr-2">
-                <p-inputicon styleClass="pi pi-search" />
-                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar..." />
-            </p-iconfield>
+            <div class="busqueda-export">
+                <input pInputText type="text" class="busqueda-input" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar..." />
+            </div>
         </ng-template>
     </p-toolbar>
     
@@ -20,7 +19,7 @@
         [rows]="5" 
         [paginator]="true" 
         [globalFilterFields]="['id', 'tipo_sensor', 'codigo', 'ubicacion', 'fecha_instalacion']"
-        [tableStyle]="{ 'min-width': '75rem' }" 
+        [style.width.%]="100"  
         [rowsPerPageOptions]="[5, 10, 20]" 
         [rowHover]="true"
         dataKey="id"
@@ -29,12 +28,12 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="id">ID <p-sortIcon field="id" /></th>
-                <th pSortableColumn="tipo_sensor">Tipo Sensor <p-sortIcon field="tipo_sensor" /></th>
-                <th pSortableColumn="codigo">CÓdigo <p-sortIcon field="codigo" /></th>
+                <th pSortableColumn="id">Id <p-sortIcon field="id" /></th>
+                <th pSortableColumn="tipo_sensor">Tipo sensor <p-sortIcon field="tipo_sensor" /></th>
+                <th pSortableColumn="codigo">Código <p-sortIcon field="codigo" /></th>
                 <th pSortableColumn="ubicacion">Ubicación <p-sortIcon field="ubicacion" /></th>
-                <th pSortableColumn="fecha_instalacion">Fecha Instalación <p-sortIcon field="fecha_instalacion" /></th>
-                <th >OPERACIONES</th>
+                <th pSortableColumn="fecha_instalacion">Fecha instalación <p-sortIcon field="fecha_instalacion" /></th>
+                <th >Operaciones</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-entidad>
@@ -50,20 +49,25 @@
                 </td>
             </tr>
         </ng-template>
-        <!--<ng-template #summary>
-            <div class="flex items-center justify-between">En total hay  {{ entidad ? entidad.length : 0 }} entidad.</div>
-        </ng-template> -->
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7" class="text-center text-gray-600">
+              No hay registros aún. ¡Vamos, regístralo por primera vez!
+            </td>
+          </tr>
+        </ng-template>
     </p-table>
 </div>
 
 
 <!-- Modal para agregar o editar producto -->
-<p-dialog [(visible)]="displayModal" [style]="{ width: '450px' }" [modal]="true" header="Formulario">
+<p-dialog [(visible)]="displayModal" [style]="{ width: '90%', maxWidth: '450px' }" [modal]="true" header="Formulario">
     <ng-template #content>
-        <div class="flex flex-col gap-6">
+        <div class="formulario">
             <div>
                 <label for="tipo_sensor" class="block font-bold mb-3">Tipo Sensor</label>
                 <p-dropdown fluid
+                    [appendTo]="'body'"
                     [options]="tipoSensores"
                     optionLabel="nombre_tipo_sensor"
                     optionValue="id"
@@ -74,15 +78,15 @@
             </div>
             <div>
                 <label for="codigo" class="block font-bold mb-3">Código</label>
-                <input id="codigo" type="text" pInputText [(ngModel)]="entidad.codigo" required autofocus fluid/>
+                <input id="codigo" type="text" pInputText [(ngModel)]="entidad.codigo" fluid/>
             </div>
             <div>
                 <label for="ubicacion" class="block font-bold mb-3">Ubicación</label>
-                <input id="ubicacion" type="text" pInputText [(ngModel)]="entidad.ubicacion" required autofocus fluid/>
+                <input id="ubicacion" type="text" pInputText [(ngModel)]="entidad.ubicacion" fluid/>
             </div>
             <div>
                 <label for="fecha_instalacion" class="block font-bold mb-3">Fecha Instalación</label>
-                <input id="fecha_instalacion" type="text" pInputText [(ngModel)]="entidad.fecha_instalacion" required autofocus fluid/>
+                <input id="fecha_instalacion" type="text" pInputText [(ngModel)]="entidad.fecha_instalacion" fluid/>
             </div>
         </div>
     </ng-template>

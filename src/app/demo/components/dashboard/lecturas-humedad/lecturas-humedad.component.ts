@@ -21,8 +21,16 @@ import { BadgeModule } from 'primeng/badge';
 import { RangoGuiasService } from 'src/app/core/services/entidades/rango-guias/rango-guias.service';
 import { IRangoGuias } from 'src/app/core/models/irango-guias';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToolbarModule } from 'primeng/toolbar';
+
 // import { PrimeFlexModule } from 'primeflex';
 // import { PrimeFlexModule } from 'primeflex'; // Para estilos de PrimeFlex
+import { SelectModule } from 'primeng/select';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { FloatLabel } from "primeng/floatlabel"
+
+import { MenuModule } from 'primeng/menu';
+import { PanelModule } from 'primeng/panel';
 
 //import { CommonModule } from '@angular/common';
 //import 'echarts/theme/dark'; // Importa un tema
@@ -30,7 +38,7 @@ echarts.use([BarChart, GridComponent, CanvasRenderer, LineChart]);
 
 @Component({
   selector: 'app-lecturas-humedad',
-  imports: [SHARED_FORMULARIOS_IMPORTS,CardModule,BadgeModule, Knob, RippleModule, InputNumberModule, ColorPickerModule, CalendarModule, NgxEchartsDirective, ButtonModule, DropdownModule, MenubarModule, InputGroupModule, ToggleButtonModule],
+  imports: [SHARED_FORMULARIOS_IMPORTS,ToolbarModule, MenuModule,PanelModule, FloatLabel, IftaLabelModule,SelectModule,CardModule,BadgeModule, Knob, RippleModule, InputNumberModule, ColorPickerModule, CalendarModule, NgxEchartsDirective, ButtonModule, DropdownModule, MenubarModule, InputGroupModule, ToggleButtonModule],
   templateUrl: './lecturas-humedad.component.html',
   styleUrl: './lecturas-humedad.component.scss',
   providers: [
@@ -38,7 +46,7 @@ echarts.use([BarChart, GridComponent, CanvasRenderer, LineChart]);
   ]
 })
 export class LecturasHumedadComponent implements OnInit { 
-
+ 
   configuraciones : any[] = []; //Lista de configuracion_procesadores
   seleccionableConfigId: number = 1; 
   fechaInicio: string = '';
@@ -257,9 +265,6 @@ export class LecturasHumedadComponent implements OnInit {
     const humedadSeries = data.humedad;
     const temperaturaSeries = data.temperatura;
 
-    // this.showHumedadData = true;
-    // this.showTemperaturaData = false;
-
     console.log(temperaturaSeries);
 
     //Crear las series para el grafico
@@ -274,17 +279,6 @@ export class LecturasHumedadComponent implements OnInit {
       for (let i = 0; i < 5; i++) {
         const data = temperaturaSeries[i];
       
-        // Calcular el mínimo y máximo de los datos actuales
-        //const currentMin = Math.min(...data);
-        //const currentMax = Math.max(...data);
-        
-        // Actualizar el mínimo y máximo global
-        // if (currentMin < minValue) {
-        //   minValue = currentMin;
-        // }
-        // if (currentMax > maxValue) {
-        //   maxValue = currentMax;
-        // }
         series.push({
           name:`Nivel Temperatura ${i + 1}`,
           type: 'line',
@@ -342,20 +336,31 @@ export class LecturasHumedadComponent implements OnInit {
       //   // }
       // },
       tooltip: {
-        trigger: 'axis' //Linea de guia vertical al cursar el grafico (simplifica la visualización de datos ya que no tienes que cursar al punto especifico, sino que es más dinamico)
+        trigger: 'axis', //Linea de guia vertical al cursar el grafico (simplifica la visualización de datos ya que no tienes que cursar al punto especifico, sino que es más dinamico)
+        confine: true
       },
       grid: {
-        // left: '5%',
-        // right: '15%',
-        bottom: '15%'
+        left: '3%',    // Márgenes más ajustados en móviles
+        right: '4%',
+        bottom: '15%',
+        top: '15%',
+        containLabel: true,  // ¡Importante! Evita que las etiquetas se salgan
       },
       legend: {
         data: series.map((s) => s.name), //Nombre de las series para las leyendas
-        left: '10%'
+        //pageIconSize: 10,
+        //pageTextStyle: { fontSize: 10 },
+        type: 'scroll',  // Permite desplazamiento si hay muchas leyendas
+        top: window.innerWidth < 768 ? 'bottom' : '5%',
+        textStyle: {
+          fontSize: window.innerWidth < 768 ? 12 : 14  // Ajuste del tamaño de texto
+        }
       },
       xAxis: {
         type: 'category',
         data: fecha_hora,
+        rotate: 45,         // Rotar etiquetas si es necesario
+        fontSize: 10,       // Tamaño reducido en móviles
         //splitLine: { show: true }, //Con eso se marcan lineas de forma vertical
         // textStyle: {
         //   color: '#ccc'
@@ -377,44 +382,12 @@ export class LecturasHumedadComponent implements OnInit {
         // }
       },
       dataZoom: [ //Configuracion adicional de zoom
-        {
-          startValue: '2025-01-30 12:00:17' //Valor por el cual iniciará mostrando por defecto
-        },
-        {
-          type: 'inside' //permite deslizarnos/navegación por el grafico
-        }
+        // {
+        //   startValue: '2025-01-30 12:00:17' //Valor por el cual iniciará mostrando por defecto
+        // },
+        {type: 'inside'}, //permite deslizarnos/navegación por el grafico
+        { type: 'slider' }, // Para desktops
       ],
-      // visualMap: {
-      //   top: 50,
-      //   right: 10,
-      //   pieces: this.rangosGuiasConfig
-      // },
-      // visualMap: {  //Esto le agrega su viñeta
-      //   top: 50,
-      //   right: 10,
-      //   pieces: [
-      //     //Verde #93CE07 //Amarilla #FBDB0F //Naranja #FC7D02
-      //     //Morado #AA069F //Marron #AC3B2A  //Rojo #FD0100 
-      //     {
-      //       gt: 20,
-      //       lte: 24,
-      //       color: '#FC7D02' // #FC7D02
-      //     },
-      //     {
-      //       gt: 24,
-      //       lte: 25,
-      //       color: '#93CE07' // #93CE07
-      //     },
-      //     {
-      //       gt: 25,
-      //       lte: 29,
-      //       color: '#FD0100' //Rojo #FD0100
-      //     }
-      //   ],
-      //   outOfRange: {
-      //     color: '#999' //color #999
-      //   }
-      // },
       series: series,
     };
     mychart.setOption(option);

@@ -13,7 +13,7 @@ import { CookieService } from "ngx-cookie-service";
 //Graficos con echarts
 //import { provideECharts } from 'ngx-echarts';
 import { providePrimeNG } from "primeng/config";
-import Lara from '@primeng/themes/lara';
+import Aura from '@primeng/themes/aura';
 import { MessageService } from "primeng/api";
 import { SHARED_PROVIDERS } from "./shared/shared-imports";
 
@@ -29,7 +29,10 @@ export const appConfig: ApplicationConfig = {
         
         providePrimeNG({
             theme: {
-                preset: Lara
+                preset: Aura,
+                options: {
+                    darkModeSelector: '.my-app-dark'
+                }
             }
         }),
         MessageService,

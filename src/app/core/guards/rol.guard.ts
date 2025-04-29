@@ -6,12 +6,12 @@ export const rolGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  const requiredRole = route.data['rol']; // Obtén el rol requerido de la ruta
+  const requiredRole = route.data['rol'] as string[]; // Obtén el rol requerido de la ruta
   const userRole = authService.getUserRole();
 
   console.log(`rol requerido: ${requiredRole}, Rol usuario: ${userRole}`);
   
-  if (userRole === requiredRole) {
+  if (requiredRole.includes(userRole)) {
     return true; // Permite el acceso si el rol coincide
   }
   

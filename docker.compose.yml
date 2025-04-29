@@ -9,7 +9,7 @@ services:
     environment:
       - VIRTUAL_HOST=rs.fitosatbeta.com
       - LETSENCRYPT_HOST=rs.fitosatbeta.com
-      - LETSENCRYPT_EMAIL=admin@riegosmartbeta.com
+      - LETSENCRYPT_EMAIL=admin@fitosatbeta.com
     networks:
       - proxy
 networks:
