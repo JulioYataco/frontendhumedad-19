@@ -249,7 +249,7 @@ export class LecturasHumedadComponent implements OnInit {
     this.lecturahumedadService.EstadoConfiguraciones(configuracionId).subscribe(
       (data) => {
         this.estadoSensorConfig = data;
-        console.log('Estado de sensor:', this.rangosGuiasConfig);
+        console.log('Estado de sensor:', this.estadoSensorConfig);
       }
     )
   }
@@ -295,7 +295,7 @@ export class LecturasHumedadComponent implements OnInit {
         const data = temperaturaSeries[i];
       
         series.push({
-          name:`Nivel Temperatura ${i + 1}`,
+          name:`N. Temp ${i + 1}`,
           type: 'line',
           data: temperaturaSeries[i],
           markLine: {
@@ -328,7 +328,7 @@ export class LecturasHumedadComponent implements OnInit {
         }
 
         series.push({
-          name:`Nivel Humedad ${i + 1}`,
+          name:`N. Hum ${i + 1}`,
           type: 'line',
           data: humedadSeries[i],
           markLine: {
@@ -366,7 +366,7 @@ export class LecturasHumedadComponent implements OnInit {
         //pageIconSize: 10,
         //pageTextStyle: { fontSize: 10 },
         type: 'scroll',  // Permite desplazamiento si hay muchas leyendas
-        top: window.innerWidth < 768 ? 'bottom' : '5%',
+        //top: window.innerWidth < 768 ? 'bottom' : '7%',
         textStyle: {
           fontSize: window.innerWidth < 768 ? 12 : 14  // Ajuste del tamaño de texto
         }
@@ -383,7 +383,7 @@ export class LecturasHumedadComponent implements OnInit {
       },
       yAxis: {},
       toolbox: { //Esto funciona para habilitar opciones interactivas en el grafico
-        right: 10, //Posiciona al lado izquierdo las opciones a habilitar
+        //right: 10, //Posiciona al lado izquierdo las opciones a habilitar
         feature: { //Opciones
           dataZoom: { //Para poder realizar zoom al grafico
             yAxisIndex: 'none'
