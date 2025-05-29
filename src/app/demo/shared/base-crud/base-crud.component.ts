@@ -69,7 +69,7 @@ export class BaseCrudComponent<T> implements OnInit{
     }
 
     //Crear o editar
-    guardar() {
+    guardar() { 
         console.log('Se llamó al método guardar', this.entidad);
         // Si tiene id, entonces es edición
         if ((this.entidad as any).id) {

@@ -1,6 +1,7 @@
 <p-confirmdialog></p-confirmdialog>
 <p-toast></p-toast>
 
+<!--4 CARDS  -->
 <div class="grid gap-4 mb-3">
     <div class="card-container">
         <div class="card avg-card">
@@ -17,22 +18,56 @@
         <div class="card-container">
         <div class="card avg-card">
             <p class="avg-title">Cultivo</p>
-            <p class="avg-value">{{detallesConfig.nombre_cultivo}}</p>
+            <p class="avg-value">{{detallesConfig?.nombre_cultivo}}</p>
         </div>
     </div>
     <div class="card-container">
         <div class="card avg-card">
             <p class="avg-title">Tipo de tierra</p>
-            <p class="avg-value">{{detallesConfig.nombre_tipo_suelo}}</p>
+            <p class="avg-value">{{detallesConfig?.nombre_tipo_suelo}}</p>
         </div>
     </div>
 </div>
 
-<div class="card">
+<!-- Texto descriptivo -->
+<p class="descripcion-test text-center gap-4 mb-3">
+    Fundo {{detallesConfig?.nombre_fundo}} | Lote  {{detallesConfig?.nombre_lote}} | Sublote: {{detallesConfig?.nombre_sublote}} - Hectareas {{detallesConfig?.hectareas}} - Estado:{{estadoSensorConfig?.mensaje}}
+</p>
+
+
     <p-panel [toggleable]="true" [collapsed]="true">
+        <!--Cabecera-->
         <ng-template #header>
             <div class="flex items-center gap-2">
-                <span class="font-bold">Filtros para el gráfico</span>
+                <!--<span class="font-bold">Filtros para el gráfico
+                </span>-->
+                <p-button 
+                    label="Rangos" 
+                    (click)="abrirModal()" 
+                    variant="text" 
+                    severity="success" 
+                    icon="pi pi-pencil" 
+                    [raised]="true" 
+                />
+
+                <div class="busqueda-export">
+                    <p-button 
+                        label="Humedad" 
+                        (click)="showHumedad()" 
+                        [class.selected]="showHumedadData" 
+                        icon="pi pi-cloud" 
+                        severity="info" 
+                        text
+                    />
+                    <p-button 
+                        label="Temperatura" 
+                        (click)="showTemperatura()" 
+                        [class.selected]="showTemperaturaData" 
+                        icon="pi pi-lightbulb" 
+                        severity="danger"
+                        text
+                    />
+                </div>
             </div>
         </ng-template>
         <!-- FILTROS SUPERIORES -->
@@ -82,15 +117,10 @@
             </div>-->
         </div>
     </p-panel>  
-</div>
 
-<!-- Texto descriptivo -->
-<p class="descripcion-test text-center gap-4 mb-3">
-    Fundo {{detallesConfig.nombre_fundo}} | Lote  {{detallesConfig.nombre_lote}} | Sublote: {{detallesConfig.nombre_sublote}} - Hectareas {{detallesConfig.hectareas}}
-</p>
 
 <div class="card main-card mb-3">
-    <p-toolbar styleClass="mb-4">
+    <!--<p-toolbar styleClass="mb-4">
         <ng-template #start>
           <p-button 
             label="Rangos" 
@@ -121,7 +151,7 @@
                 />
           </div>
         </ng-template>
-      </p-toolbar>
+      </p-toolbar>-->
     <div class="card-body p-2">
         <div echarts id="main" class="demo-chart"></div>          
     </div>

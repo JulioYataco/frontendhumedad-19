@@ -63,6 +63,8 @@ export class LecturasHumedadComponent implements OnInit {
 
   rangosGuiasConfig: any[] = [];
 
+  estadoSensorConfig: any;
+
   // Array de líneas de referencia
   referenceLines: { yAxis: number; color: string; type: string }[] = [];
 
@@ -80,25 +82,25 @@ export class LecturasHumedadComponent implements OnInit {
   entidadcompleta!: IRangoGuias ;
 
   lineTypes = [
-    { label: 'Línea Sólida', value: 'solid' },
-    { label: 'Línea Punteada', value: 'dashed' },
-    { label: 'Línea Discontinua', value: 'dotted' }
+    { label: 'Línea Sólida ___', value: 'solid' },
+    { label: 'Línea Punteada _ _ _', value: 'dashed' },
+    { label: 'Línea Discontinua ......', value: 'dotted' }
   ];
 
   CargarDatosModal(entidad: IRangoGuias) {
     this.entidad = { ...entidad };
-    console.log("datos a editas:", entidad);
+    //console.log("datos a editas:", entidad);
   }
   //Se usa para cuando se agrege o actualice una linea, y se elija otro color este actualiza su valor
   actualizarColor(event: any) {
     this.entidad.color = event.value; // Captura el color seleccionado
-    console.log('Color actualizado:', this.entidad.color);
+    //console.log('Color actualizado:', this.entidad.color);
   }
 
   guardarConfiguracion() {
     //Indicamos que el valor seleccionable es igual al atributo configuracion_procesador
     this.entidad.configuracion_procesador = this.seleccionableConfigId;
-    console.log('Entidad antes de enviar:', this.entidad); // 🔍 Verifica en consola
+    //.log('Entidad antes de enviar:', this.entidad); // 🔍 Verifica en consola
     
     if(this.entidad?.id){
       this.confirmationService.confirm({
@@ -109,8 +111,9 @@ export class LecturasHumedadComponent implements OnInit {
           //Actualizar
           this.rangoGuiaService.update(this.entidad.id, this.entidad).subscribe({
             next: (data) => {
-              console.log('actualizado de lineas:',data)
+              //console.log('actualizado de lineas:',data)
               this.obtenerRangosGuiasConfig(this.seleccionableConfigId);
+              this.obtenerEstadoSensorConfig(this.seleccionableConfigId);
               this.messageService.add({ severity: 'success', summary: 'Editado', detail: 'Registro editado correctamente'});
             },
             error: err => console.error('Error al actualizar:', err)
@@ -125,8 +128,9 @@ export class LecturasHumedadComponent implements OnInit {
         accept: () => {
           this.rangoGuiaService.create(this.entidad).subscribe({
             next: (data) => {
-              console.log('Linea Agregado:', data)
+              //console.log('Linea Agregado:', data)
               this.obtenerRangosGuiasConfig(this.seleccionableConfigId);
+              this.obtenerEstadoSensorConfig(this.seleccionableConfigId);
               this.messageService.add({ severity: 'success', summary: 'Registrado', detail: 'Registro agregado correctamente'});
             },
             error: err => console.error('Error al agregar rangos:', err)
@@ -145,6 +149,7 @@ export class LecturasHumedadComponent implements OnInit {
 
         this.rangoGuiaService.delete(id).subscribe(() => {
           this.obtenerRangosGuiasConfig(this.seleccionableConfigId);
+          this.obtenerEstadoSensorConfig(this.seleccionableConfigId);
           this.messageService.add({ severity: 'success', summary: 'Eliminado', detail: 'Registro Eliminado correctamente'});
         });
       },
@@ -174,6 +179,7 @@ export class LecturasHumedadComponent implements OnInit {
     this.cargaPromedioLecturas(id, this.fechaInicio, this.fechaFin);
     this.obtenerDetallesConfig(id);
     this.obtenerRangosGuiasConfig(id);
+    this.obtenerEstadoSensorConfig(id);
   }
 
   //Carga las configuraciones en el select
@@ -191,7 +197,7 @@ export class LecturasHumedadComponent implements OnInit {
   //Al presionar uno de los elemenntos del select, carga las lecturas y le pasa el id del la conffiguracion seleccionada
   ConfiguracionesChange(): void {
     if (this. seleccionableConfigId) {
-      console.log('Selected Procesador ID:', this.seleccionableConfigId);
+      //console.log('Selected Procesador ID:', this.seleccionableConfigId);
       this.RefrescarDatos(this.seleccionableConfigId);
     }
   }
@@ -199,7 +205,7 @@ export class LecturasHumedadComponent implements OnInit {
   cargarLecturasHumedad(configuracionid: any, fechainicio: string, fechafin: string): void {
     this.lecturahumedadService.listaLecturasHumedad(configuracionid, fechainicio, fechafin).subscribe(
       (data) => {
-        console.log('datos sensor:', data);
+        //console.log('datos sensor:', data);
         this.procesarLecturas(data);
       },
       (error) => {
@@ -211,7 +217,7 @@ export class LecturasHumedadComponent implements OnInit {
   cargaPromedioLecturas(configuracionid: any, fechainicio: string, fechafin: string): void {
     this.lecturahumedadService.promedioHumedadTemperatura(configuracionid, fechainicio, fechafin).subscribe(
       (data) => {
-        console.log('promedio de lecturas:', data);
+        //console.log('promedio de lecturas:', data);
         this.promedioHumedad = data.promedio_humedad;
         this.promedioTemperatura = data.promedio_temperatura;
       },
@@ -225,7 +231,7 @@ export class LecturasHumedadComponent implements OnInit {
     this.lecturahumedadService.detallesConfiguraciones(configuracionId).subscribe(
       (data) => {
         this.detallesConfig = data;
-        console.log('detales de config:', this.detallesConfig);
+        //console.log('detales de config:', this.detallesConfig);
       }
     )
   }
@@ -234,19 +240,28 @@ export class LecturasHumedadComponent implements OnInit {
     this.lecturahumedadService.RangoGuiasConfiguraciones(configuracionId).subscribe(
       (data) => {
         this.rangosGuiasConfig = data;
-        console.log('rangos guias de config:', this.rangosGuiasConfig);
+        //console.log('rangos guias de config:', this.rangosGuiasConfig);
+      }
+    )
+  }
+
+  obtenerEstadoSensorConfig(configuracionId: number): void {
+    this.lecturahumedadService.EstadoConfiguraciones(configuracionId).subscribe(
+      (data) => {
+        this.estadoSensorConfig = data;
+        console.log('Estado de sensor:', this.rangosGuiasConfig);
       }
     )
   }
   
   loadDataWithDates(): void {
     if (this. seleccionableConfigId !== null) {
-      console.log('Id seleccionado:', this. seleccionableConfigId);
-      console.log('fecha inicio:', this.fechaInicio);
-      console.log('fecha final:', this.fechaFin);
+      //console.log('Id seleccionado:', this. seleccionableConfigId);
+      //console.log('fecha inicio:', this.fechaInicio);
+      //console.log('fecha final:', this.fechaFin);
       this.lecturahumedadService.listaLecturasHumedad(this. seleccionableConfigId, this.fechaInicio, this.fechaFin).subscribe(
         (data) => {
-          console.log('datos sensor con filtro:', data);
+          //console.log('datos sensor con filtro:', data);
           this.procesarLecturas(data);
         },
         (error) => {
@@ -265,7 +280,7 @@ export class LecturasHumedadComponent implements OnInit {
     const humedadSeries = data.humedad;
     const temperaturaSeries = data.temperatura;
 
-    console.log(temperaturaSeries);
+    //console.log(temperaturaSeries);
 
     //Crear las series para el grafico
     const series = [];
@@ -324,7 +339,7 @@ export class LecturasHumedadComponent implements OnInit {
         });
       }
     }
-    console.log(series);
+    //console.log(series);
     
     const option = {
       //backgroundColor: '#232526', //roundColor: '#0f375f',
@@ -432,7 +447,7 @@ export class LecturasHumedadComponent implements OnInit {
   cerrarModal(){
     this.displayModal = false;
     if (this. seleccionableConfigId !== null) {
-      console.log('Selected Procesador ID:', this.seleccionableConfigId);
+      //console.log('Selected Procesador ID:', this.seleccionableConfigId);
       this.cargarLecturasHumedad(this. seleccionableConfigId, this.fechaInicio, this.fechaFin);
     }
   }

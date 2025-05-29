@@ -13,6 +13,7 @@ export class LecturahumedadService {
   private configuracionUrl = `${this.apiUrl}/Configuracion_listar/`;
   private detalleconfiguracionUrl = `${this.apiUrl}/obtener_detalles_configuracion/`;
   private RangoGuiasConfiguracionesUrl = `${this.apiUrl}/ListarRangoGuiaIdConfig/`;
+  private EstadoConfiguracionesUrl = `${this.apiUrl}/ListarEstadoSensorIdConfig/`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -62,5 +63,16 @@ export class LecturahumedadService {
   RangoGuiasConfiguraciones(configuracionId: number): Observable<any> {
     const params = new HttpParams().set('configuracion_procesador', configuracionId.toString());
     return this.httpClient.get<any>(this.RangoGuiasConfiguracionesUrl, { params });
+  }
+
+  /**
+   * Obtener detalles de configuración por ID
+   * @param configuracionId ID de la configuración a consultar
+   * @returns Estado del sensor
+   *    
+   * */
+  EstadoConfiguraciones(configuracionId: number): Observable<any> {
+    const params = new HttpParams().set('configuracion_procesador', configuracionId.toString());
+    return this.httpClient.get<any>(this.EstadoConfiguracionesUrl, { params });
   }
 }
