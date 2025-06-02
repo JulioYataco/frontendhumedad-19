@@ -31,6 +31,9 @@ import { FloatLabel } from "primeng/floatlabel"
 
 import { MenuModule } from 'primeng/menu';
 import { PanelModule } from 'primeng/panel';
+import { TooltipModule } from 'primeng/tooltip';
+import { TagModule } from 'primeng/tag';
+
 
 //import { CommonModule } from '@angular/common';
 //import 'echarts/theme/dark'; // Importa un tema
@@ -38,7 +41,7 @@ echarts.use([BarChart, GridComponent, CanvasRenderer, LineChart]);
 
 @Component({
   selector: 'app-lecturas-humedad',
-  imports: [SHARED_FORMULARIOS_IMPORTS,ToolbarModule, MenuModule,PanelModule, FloatLabel, IftaLabelModule,SelectModule,CardModule,BadgeModule, Knob, RippleModule, InputNumberModule, ColorPickerModule, CalendarModule, NgxEchartsDirective, ButtonModule, DropdownModule, MenubarModule, InputGroupModule, ToggleButtonModule],
+  imports: [SHARED_FORMULARIOS_IMPORTS,ToolbarModule, MenuModule,PanelModule, FloatLabel, IftaLabelModule,SelectModule,CardModule,BadgeModule, Knob, RippleModule, InputNumberModule, ColorPickerModule, CalendarModule, NgxEchartsDirective, ButtonModule, DropdownModule, MenubarModule, InputGroupModule, ToggleButtonModule, TagModule, TooltipModule],
   templateUrl: './lecturas-humedad.component.html',
   styleUrl: './lecturas-humedad.component.scss',
   providers: [
@@ -249,7 +252,8 @@ export class LecturasHumedadComponent implements OnInit {
     this.lecturahumedadService.EstadoConfiguraciones(configuracionId).subscribe(
       (data) => {
         this.estadoSensorConfig = data;
-        console.log('Estado de sensor:', this.estadoSensorConfig);
+        //console.log();
+        //console.log('Estado de sensor:', this.estadoSensorConfig);
       }
     )
   }
@@ -442,6 +446,59 @@ export class LecturasHumedadComponent implements OnInit {
   abrirModal(){
     this.displayModal = true;
     this.entidad = {} //Limpia el formulario
+  }
+  
+  estadoLegible: { [key: string]: string } = {
+    asistio: 'Conectado',
+    cancelada: 'Fallo de lectura'
+  };
+
+  getColorEstado(tipo: string): 'success' | 'danger' |'secondary' | 'warn' | 'info' | 'contrast' {
+    // const hoy = new Date();   //Fecha del sistema
+    // const fecha = new Date(fecha_crea);  //Fecha traide del registro
+    // const diferencia = hoy.getTime() - fecha.getTime();  //Obtenemos la diferencia en milisegundos
+    // const diferenciaMin = Math.floor(diferencia / 60000); //60,000 milisengundos = 1 minuto
+    // console.log("Milisegundos",diferenciaMin);
+    // if (diferenciaMin > 20){
+    //   return 'info';
+    // }
+
+    switch (tipo) {
+      case 'Exitoso':
+        return 'success';
+      case 'Fallo':
+        return 'warn';
+      case 'Desconectado':
+        return 'danger';
+      default:
+        return 'info';
+    };
+  }
+
+  getIconEstado(tipo: string): string {
+    switch (tipo) {
+      case 'Exitoso':
+        return 'pi pi-check-circle';
+      case 'Fallo':
+        return 'pi pi-exclamation-triangle';
+      case 'Desconectado':
+        return 'pi pi-times-circle';
+      default:
+        return 'pi pi-info-circle';
+    }
+  }
+
+  getTooltipEstado(tipo: string): string {
+    switch (tipo) {
+      case 'Exitoso':
+        return 'El envio de lectura fue exitoso';
+      case 'Fallo':
+        return 'El sensor no a enviado lecturas';
+      case 'Desconectado':
+        return 'Sin wifi/apagado';
+      default:
+        return 'Estado desconocido';
+    }
   }
 
   cerrarModal(){

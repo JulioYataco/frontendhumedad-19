@@ -31,7 +31,14 @@
 
 <!-- Texto descriptivo -->
 <p class="descripcion-test text-center gap-4 mb-3">
-    Fundo {{detallesConfig?.nombre_fundo}} | Lote  {{detallesConfig?.nombre_lote}} | Sublote: {{detallesConfig?.nombre_sublote}} - Hectareas {{detallesConfig?.hectareas}} - Estado:{{estadoSensorConfig?.mensaje}}
+    Fundo {{detallesConfig?.nombre_fundo}} | Lote  {{detallesConfig?.nombre_lote}} | Sublote: {{detallesConfig?.nombre_sublote}} - Hectareas {{detallesConfig?.hectareas}} || Estado: <p-tag
+              class="hoverable-tooltip"
+              [value]="estadoSensorConfig?.mensaje"
+              [severity]="getColorEstado(estadoSensorConfig?.tipo)"
+              [icon]="getIconEstado(estadoSensorConfig?.tipo)"
+              pTooltip="{{ getTooltipEstado(estadoSensorConfig?.tipo) }}"
+              tooltipPosition="bottom"
+            ></p-tag>
 </p>
 
 <!--Filtros de humedad, temperatura, sensor y por fechas-->
@@ -42,7 +49,7 @@
             <!--<span class="font-bold">Filtros para el gráfico
             </span>-->
             <p-button 
-                label="Rangos" 
+                label="Rangos"
                 (click)="abrirModal()" 
                 severity="success" 
                 icon="pi pi-pencil" 
