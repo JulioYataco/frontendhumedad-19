@@ -45,7 +45,7 @@ export const NavigationItems: NavigationItem[] = [
         url: '/lecturashumedad',
         icon: 'dashboard',
         breadcrumbs: false,
-        rolesPermitidos: ['Jefe Fundo', 'Super Usuario'],
+        rolesPermitidos: ['Jefe de Fundo', 'Super Usuario', 'Administrador', 'Supervisor'],
       }
     ]
   },
@@ -152,7 +152,7 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/variedad-raices',
         classes: 'nav-item',
-        icon: 'profile', 
+        icon: 'profile',
         rolesPermitidos: ['Administrador', 'Super Usuario'],
       },
       {

@@ -57,11 +57,13 @@ export class NavContentComponent implements OnInit {
     this.iconService.addIcon(
       ...[DashboardOutline]
     );
-    
+
     //Obtenemos el rol de usuario autenticado
     const userRole = this.authService.getUserRole() || 'guest';
-    
+    console.log(userRole);
+
     this.navigations = this.getNavigationForRole(userRole);
+    console.log(this.navigations);
   }
 
   // Life cycle events
@@ -74,7 +76,7 @@ export class NavContentComponent implements OnInit {
   private getNavigationForRole(userRole: string): NavigationItem[] {
     return NavigationItems.map(group => ({
       ...group,
-      children: group.children?.filter(item => 
+      children: group.children?.filter(item =>
         !item.rolesPermitidos || item.rolesPermitidos.includes(userRole) // Si no tiene roles, es visible para todos
       )
     })).filter(group => group.children && group.children.length > 0);
