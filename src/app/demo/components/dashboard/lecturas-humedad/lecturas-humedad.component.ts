@@ -33,8 +33,11 @@ import { MenuModule } from 'primeng/menu';
 import { PanelModule } from 'primeng/panel';
 import { TooltipModule } from 'primeng/tooltip';
 import { TagModule } from 'primeng/tag';
+// import { SwPush, } from '@angular/service-worker';
+import { Subscription, take } from 'rxjs';
 
-
+import { SwPush, } from '@angular/service-worker';
+import { NotificationService } from 'src/app/core/services/pushnotification/notification.service';
 //import { CommonModule } from '@angular/common';
 //import 'echarts/theme/dark'; // Importa un tema
 echarts.use([BarChart, GridComponent, CanvasRenderer, LineChart]);
@@ -71,7 +74,20 @@ export class LecturasHumedadComponent implements OnInit {
   // Array de líneas de referencia
   referenceLines: { yAxis: number; color: string; type: string }[] = [];
 
-  constructor(private lecturahumedadService: LecturahumedadService, private rangoGuiaService: RangoGuiasService) { }
+  //Para push notification
+  subscription!: Subscription;
+  // private readonly VAPID_PUBLIC_KEY = 'BHmL8Yw1J-LvmkW_7eafcA6DSL14EfGwq91PXx6GiV3AJd5Rwzr2hlhFsJuscWZF0Bx0UDHKGFZBSqZQfxJ3__k';
+  private readonly VAPID_PUBLIC_KEY = 'BEHxaLqVc_RRgYtf_03d5feWRL1dIT4NkKOHuSidsX_-yNBHTfIeG4Ef2HkgT2iZfsmaUPo7FPwJ11D_TvouMRc';
+
+  constructor(
+    private lecturahumedadService: LecturahumedadService, 
+    private rangoGuiaService: RangoGuiasService,
+    //Para push notification
+    private swPush: SwPush,
+    private notificationService: NotificationService,
+  ) {
+    // this.subscription = this.lecturahumedadService
+  }
   // Valores temporales para la nueva línea
   lte: number = 10;
   color: string = '#FF0000';
@@ -103,7 +119,7 @@ export class LecturasHumedadComponent implements OnInit {
   guardarConfiguracion() {
     //Indicamos que el valor seleccionable es igual al atributo configuracion_procesador
     this.entidad.configuracion_procesador = this.seleccionableConfigId;
-    //.log('Entidad antes de enviar:', this.entidad); // 🔍 Verifica en consola
+    //.log('Entidad antes de enviar:', this.entidad); //  Verifica en consola
     
     if(this.entidad?.id){
       this.confirmationService.confirm({
@@ -169,6 +185,8 @@ export class LecturasHumedadComponent implements OnInit {
     if (this.seleccionableConfigId) {
       this.RefrescarDatos(this.seleccionableConfigId);
     }
+
+    this.subscribeToNotifications();
   }
 
   CerrarModalRefrescarTodo(){
@@ -507,5 +525,131 @@ export class LecturasHumedadComponent implements OnInit {
       //console.log('Selected Procesador ID:', this.seleccionableConfigId);
       this.cargarLecturasHumedad(this. seleccionableConfigId, this.fechaInicio, this.fechaFin);
     }
+  }
+
+  subscribeToNotifications() {
+    if(this.swPush.isEnabled ){
+      console.log(this.swPush.isEnabled);
+      console.log(this.swPush);
+      this.swPush.subscription.pipe(take(1)).subscribe(subscription => {
+        if(subscription == null){
+          this.swPush.requestSubscription({
+              serverPublicKey: this.VAPID_PUBLIC_KEY,
+          })
+          .then(sub => {
+            const browser = this.loadVersionBrowser();
+
+            const endpointParts = sub.endpoint.split('/');
+            const registration_id = endpointParts[endpointParts.length - 1];
+            const data = {
+              'browser': browser.name.toUpperCase(),
+              'p256dh': btoa(String.fromCharCode.apply(null,Array.from(new Uint8Array(sub.getKey('p256dh')!)))),
+              'auth': btoa(String.fromCharCode.apply(null,Array.from(new Uint8Array(sub.getKey('auth')!)))),
+              'name': 'telemetry_notifications',
+              'registration_id': registration_id
+            };
+
+            this.notificationService.addPushSubscriber(data).subscribe();
+          })
+          .catch(err => console.error("Could not subscribe to notifications", err));
+        }
+        else{
+          console.log("Already subscribed to notifications");
+        }
+      });
+
+      this.swPush.notificationClicks.subscribe({
+        next : (payload) =>{
+          window.open(payload.notification.data.url,'_blank');
+        }
+      })
+    }
+    else{
+      console.log("No se pudo suscribir a las notificaciones")
+    }
+  }
+
+  urlBase64ToUint8Array (base64String : string) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4)
+    const base64 = (base64String + padding)
+            .replace(/\-/g, '+')
+            .replace(/_/g, '/')
+
+    const rawData = window.atob(base64)
+    const outputArray = new Uint8Array(rawData.length)
+
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i)
+    }
+    return outputArray;
+  }
+
+  loadVersionBrowser () {
+    if ("userAgentData" in navigator) {
+      // navigator.userAgentData is not available in
+      // Firefox and Safari
+      const uaData = (navigator as any)['userAgentData'];
+      // Outputs of navigator.userAgentData.brands[n].brand are e.g.
+      // Chrome: 'Google Chrome'
+      // Edge: 'Microsoft Edge'
+      // Opera: 'Opera'
+      let browsername = '';
+      let browserversion = '';
+      let chromeVersion: string  | null = null;
+      for (let i = 0; i < uaData.brands.length; i++) {
+        const brand = uaData!.brands[i].brand;
+        browserversion = uaData.brands[i].version;
+        if (brand.match(/opera|chrome|edge|safari|firefox|msie|trident/i) !== null) {
+          // If we have a chrome match, save the match, but try to find another match
+          // E.g. Edge can also produce a false Chrome match.
+          if (brand.match(/chrome/i) !== null) {
+            chromeVersion = browserversion;
+          }
+          // If this is not a chrome match return immediately
+          else {
+            browsername = brand.substr(brand.indexOf(' ')+1);
+            return {
+              name: browsername,
+              version: browserversion
+            }
+          }
+        }
+      }
+      // No non-Chrome match was found. If we have a chrome match, return it.
+      if (chromeVersion !== null) {
+        return {
+          name: "chrome",
+          version: chromeVersion
+        }
+      }
+    }
+    // If no userAgentData is not present, or if no match via userAgentData was found,
+    // try to extract the browser name and version from userAgent
+    const userAgent = navigator.userAgent;
+    const M = userAgent.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    // const ua = userAgent, tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    let tem;
+    if (/trident/i.test(M[1])) {
+      tem = /\brv[ :]+(\d+)/g.exec(userAgent) || [];
+      return {name: 'IE', version: (tem[1] || '')};
+    }
+    if (M[1] === 'Chrome') {
+      tem = userAgent.match(/\bOPR\/(\d+)/);
+      if (tem != null) {
+        return {name: 'Opera', version: tem[1]};
+      }
+    }
+
+    const name = M[1] || navigator.appName;
+    const version = M[2] || navigator.appVersion;
+    return { name, version };
+    // M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+    // if ((tem = userAgent.match(/version\/(\d+)/i)) != null) {
+    //   M.splice(1, 1, tem[1]);
+    // }
+    // return {
+    //   name: M[0],
+    //   version: M[1]
+    // };
   }
 }

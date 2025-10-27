@@ -1,5 +1,5 @@
 import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http";
-import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
+import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from "@angular/core";
 import { authInterceptor } from "./core/interceptors/auth.interceptor";
 import { provideClientHydration, withEventReplay } from "@angular/platform-browser";
 import { provideRouter } from "@angular/router";
@@ -16,6 +16,7 @@ import { providePrimeNG } from "primeng/config";
 import Aura from '@primeng/themes/aura';
 import { MessageService } from "primeng/api";
 import { SHARED_PROVIDERS } from "./shared/shared-imports";
+import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -44,7 +45,16 @@ export const appConfig: ApplicationConfig = {
         // ]
         // ]
         //Esto da error en angular porque no puede interpretar un array dentro de otro array
-        ...SHARED_PROVIDERS //cuando hacemos uso de (...) estamos usando el operador spread de JavaScript/TypeScript de ese modo estamos "sacando" los elementos del array y colocanmos directamente dentro del array de providers. esto nos da:
+        ...SHARED_PROVIDERS, provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          }), provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          }), provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          }) //cuando hacemos uso de (...) estamos usando el operador spread de JavaScript/TypeScript de ese modo estamos "sacando" los elementos del array y colocanmos directamente dentro del array de providers. esto nos da:
         // providers: [
         //     importProvidersFrom(ConfirmDialogModule), 
         //     ConfirmationService
