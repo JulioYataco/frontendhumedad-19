@@ -528,28 +528,33 @@ export class LecturasHumedadComponent implements OnInit {
   }
 
   subscribeToNotifications() {
+    // console.log(this.swPush.isEnabled);
+    // console.log(this.swPush);
     if(this.swPush.isEnabled ){
-      console.log(this.swPush.isEnabled);
-      console.log(this.swPush);
+      // console.log(this.swPush.isEnabled);
+      // console.log(this.swPush);
       this.swPush.subscription.pipe(take(1)).subscribe(subscription => {
         if(subscription == null){
           this.swPush.requestSubscription({
               serverPublicKey: this.VAPID_PUBLIC_KEY,
           })
           .then(sub => {
-            const browser = this.loadVersionBrowser();
+            // const browser = this.loadVersionBrowser();
 
-            const endpointParts = sub.endpoint.split('/');
-            const registration_id = endpointParts[endpointParts.length - 1];
-            const data = {
-              'browser': browser.name.toUpperCase(),
-              'p256dh': btoa(String.fromCharCode.apply(null,Array.from(new Uint8Array(sub.getKey('p256dh')!)))),
-              'auth': btoa(String.fromCharCode.apply(null,Array.from(new Uint8Array(sub.getKey('auth')!)))),
-              'name': 'telemetry_notifications',
-              'registration_id': registration_id
-            };
+            // const endpointParts = sub.endpoint.split('/');
+            // const registration_id = endpointParts[endpointParts.length - 1];
+            // const data = {
+            //   'browser': browser.name.toUpperCase(),
+            //   'p256dh': btoa(String.fromCharCode.apply(null,Array.from(new Uint8Array(sub.getKey('p256dh')!)))),
+            //   'auth': btoa(String.fromCharCode.apply(null,Array.from(new Uint8Array(sub.getKey('auth')!)))),
+            //   'name': 'telemetry_notifications',
+            //   'registration_id': registration_id
+            // };
 
-            this.notificationService.addPushSubscriber(data).subscribe();
+            this.notificationService.addPushSubscriber(sub).subscribe({
+              next: () => console.log("Suscripción enviadad al servidor"),
+              error: err => console.error("Falló registrar la suscripción", err)
+            });
           })
           .catch(err => console.error("Could not subscribe to notifications", err));
         }
