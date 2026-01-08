@@ -1,5 +1,5 @@
 import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http";
-import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from "@angular/core";
+import { ApplicationConfig, isDevMode, provideExperimentalZonelessChangeDetection } from "@angular/core";
 import { authInterceptor } from "./core/interceptors/auth.interceptor";
 import { provideClientHydration, withEventReplay } from "@angular/platform-browser";
 import { provideRouter } from "@angular/router";
@@ -20,9 +20,11 @@ import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideZoneChangeDetection({eventCoalescing : true}),
-        provideClientHydration(withEventReplay()),
+        // provideZoneChangeDetection({eventCoalescing : true}),
+        //v21
+        provideExperimentalZonelessChangeDetection(),
         provideRouter(routes), 
+        provideClientHydration(withEventReplay()),
         provideHttpClient(withFetch()),
         provideHttpClient(withInterceptors([authInterceptor])),
         CookieService,

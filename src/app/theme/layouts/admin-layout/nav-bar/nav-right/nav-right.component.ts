@@ -6,8 +6,9 @@ import { RouterModule } from '@angular/router';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
-import { OverlayPanelModule } from 'primeng/overlaypanel'; // Para reemplazar dropdowns complejos
+// import { OverlayPanelModule } from 'primeng/overlaypanel'; // Para reemplazar dropdowns complejos
 import { AvatarModule } from 'primeng/avatar'; // Opcional, para la foto de perfil
+import { PopoverModule } from 'primeng/popover'; // NUEVO
 
 // icon
 import { IconService } from '@ant-design/icons-angular';
@@ -42,7 +43,8 @@ import { AuthService } from 'src/app/core/services/login/auth.service';
     MenuModule,
     ButtonModule,
     BadgeModule,
-    OverlayPanelModule,
+    // OverlayPanelModule,
+    PopoverModule,
     AvatarModule 
   ],
   templateUrl: './nav-right.component.html',

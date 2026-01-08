@@ -133,7 +133,7 @@
       <span class="f-w-600">{{authService.usuario?.first_name}} {{authService.usuario?.last_name}}</span>
     </a>
 
-    <p-overlayPanel #opUser [style]="{'width': '300px'}" styleClass="user-profile-panel">
+    <p-popover #opUser [style]="{'width': '300px'}" styleClass="user-profile-panel">
       
       <div class="dropdown-header p-2">
         <div class="d-flex align-items-center mb-2">
@@ -160,6 +160,6 @@
           </a>
       </div>
 
-    </p-overlayPanel>
+    </p-popover>
   </li>
 </ul>
