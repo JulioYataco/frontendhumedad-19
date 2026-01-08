@@ -5709,10 +5709,10 @@ primeicons@^7.0.0:
   resolved "https://registry.npmjs.org/primeicons/-/primeicons-7.0.0.tgz"
   integrity sha512-jK3Et9UzwzTsd6tzl2RmwrVY/b8raJ3QZLzoDACj+oTJ0oX7L9Hy+XnVwgo4QVKlKpnP/Ur13SXV/pVh4LzaDw==
 
-primeng@19.0.0:
-  version "19.0.0"
-  resolved "https://registry.npmjs.org/primeng/-/primeng-19.0.0.tgz"
-  integrity sha512-A2i1dzYc67nyho2lEvJVHvWFKdMm1YvM5Z4lPdOykUEcWd1gmDSMHsvzs1zHY/CQQswL/+uWRrw2J+K0upQMnQ==
+primeng@^19.1.4:
+  version "19.1.4"
+  resolved "https://registry.npmjs.org/primeng/-/primeng-19.1.4.tgz"
+  integrity sha512-l5l8SHTxopxxyyXZx1BvbQ11P7ndLv2Qp8H5k2/+OCi65jTZn4xmtrBDGDs7k2K5UMHSqAnGjBgtpbckyqQETg==
   dependencies:
     "@primeuix/styled" "^0.3.2"
     "@primeuix/utils" "^0.3.2"
