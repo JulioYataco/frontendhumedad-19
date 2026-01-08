@@ -1,5 +1,5 @@
 import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http";
-import { ApplicationConfig, isDevMode, provideExperimentalZonelessChangeDetection } from "@angular/core";
+import { ApplicationConfig, isDevMode, provideZonelessChangeDetection } from "@angular/core";
 import { authInterceptor } from "./core/interceptors/auth.interceptor";
 import { provideClientHydration, withEventReplay } from "@angular/platform-browser";
 import { provideRouter } from "@angular/router";
@@ -12,8 +12,8 @@ import { CookieService } from "ngx-cookie-service";
 
 //Graficos con echarts
 //import { provideECharts } from 'ngx-echarts';
-import { providePrimeNG } from "primeng/config";
-import Aura from '@primeng/themes/aura';
+// import { providePrimeNG } from "primeng/config";
+// import Aura from '@primeng/themes/aura';
 import { MessageService } from "primeng/api";
 import { SHARED_PROVIDERS } from "./shared/shared-imports";
 import { provideServiceWorker } from '@angular/service-worker';
@@ -22,7 +22,7 @@ export const appConfig: ApplicationConfig = {
     providers: [
         // provideZoneChangeDetection({eventCoalescing : true}),
         //v21
-        provideExperimentalZonelessChangeDetection(),
+        provideZonelessChangeDetection(),
         provideRouter(routes), 
         provideClientHydration(withEventReplay()),
         provideHttpClient(withFetch()),
@@ -30,14 +30,14 @@ export const appConfig: ApplicationConfig = {
         CookieService,
         provideAnimationsAsync(),
         
-        providePrimeNG({
-            theme: {
-                preset: Aura,
-                options: {
-                    darkModeSelector: '.my-app-dark'
-                }
-            }
-        }),
+        // providePrimeNG({
+        //     theme: {
+        //         preset: Aura,
+        //         options: {
+        //             darkModeSelector: '.my-app-dark'
+        //         }
+        //     }
+        // }),
         MessageService,
         //Si usaramos solo SHARED_PROVIDERS es porque esto es un array, y angular espera un array de providers, si hacemos esto el resultado seria:
         //providers: [
