@@ -28,7 +28,6 @@
     "@angular/router": "19.0.5",
     "@angular/service-worker": "^19.0.5",
     "@ant-design/icons-angular": "19.0.0",
-    "@ng-bootstrap/ng-bootstrap": "18.0.0",
     "@popperjs/core": "2.11.8",
     "@primeng/themes": "^19.0.9",
     "apexcharts": "3.49.2",

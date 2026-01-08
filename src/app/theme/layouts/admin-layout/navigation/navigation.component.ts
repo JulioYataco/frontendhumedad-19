@@ -5,10 +5,10 @@ import { CommonModule } from '@angular/common';
 // project import
 
 import { NavContentComponent } from './nav-content/nav-content.component';
-
+import { TabsModule } from 'primeng/tabs';
 @Component({
   selector: 'app-navigation',
-  imports: [NavContentComponent, CommonModule],
+  imports: [NavContentComponent, CommonModule, TabsModule],
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })

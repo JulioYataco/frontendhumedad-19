@@ -1,0 +1,8 @@
+/* Ajuste para quitar el padding por defecto excesivo de PrimeNG si lo deseas más compacto */
+::ng-deep .user-profile-panel .p-overlaypanel-content {
+    padding: 0.5rem !important; 
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

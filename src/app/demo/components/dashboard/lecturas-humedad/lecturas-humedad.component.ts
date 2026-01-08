@@ -18,7 +18,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { RippleModule } from 'primeng/ripple';
 import { CardModule } from 'primeng/card';
-import { Knob } from 'primeng/knob';
+// import { Knob } from 'primeng/knob';
 import { BadgeModule } from 'primeng/badge';
 import { RangoGuiasService } from 'src/app/core/services/entidades/rango-guias/rango-guias.service';
 import { IRangoGuias } from 'src/app/core/models/irango-guias';
@@ -29,7 +29,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 // import { PrimeFlexModule } from 'primeflex'; // Para estilos de PrimeFlex
 import { SelectModule } from 'primeng/select';
 import { IftaLabelModule } from 'primeng/iftalabel';
-import { FloatLabel } from "primeng/floatlabel"
+// import { FloatLabel } from "primeng/floatlabel"
 
 import { MenuModule } from 'primeng/menu';
 import { PanelModule } from 'primeng/panel';
@@ -64,7 +64,30 @@ echarts.use([
 
 @Component({
   selector: 'app-lecturas-humedad',
-  imports: [FormsModule,MultiSelectModule, SHARED_FORMULARIOS_IMPORTS,ToolbarModule, MenuModule,PanelModule, FloatLabel, IftaLabelModule,SelectModule,CardModule,BadgeModule, Knob, RippleModule, InputNumberModule, ColorPickerModule, CalendarModule, NgxEchartsDirective, ButtonModule, DropdownModule, MenubarModule, InputGroupModule, ToggleButtonModule, TagModule, TooltipModule],
+  imports: [
+    FormsModule,
+    MultiSelectModule, 
+    SHARED_FORMULARIOS_IMPORTS,
+    ToolbarModule,
+    MenuModule,
+    PanelModule, 
+    IftaLabelModule,
+    SelectModule,
+    CardModule,
+    BadgeModule,  
+    RippleModule, 
+    InputNumberModule, 
+    ColorPickerModule, 
+    CalendarModule, 
+    NgxEchartsDirective, 
+    ButtonModule, 
+    DropdownModule, 
+    MenubarModule, 
+    InputGroupModule, 
+    ToggleButtonModule, 
+    TagModule, 
+    TooltipModule
+  ],
   templateUrl: './lecturas-humedad.component.html',
   styleUrl: './lecturas-humedad.component.scss',
   providers: [
@@ -105,6 +128,8 @@ export class LecturasHumedadComponent implements OnInit {
   nivelesSeleccionados: number[] = [1]; // Niveles seleccionados por defecto
 
 
+  // private chart!: echarts.ECharts;
+
   constructor(
     private lecturahumedadService: LecturahumedadService, 
     private rangoGuiaService: RangoGuiasService,
@@ -114,6 +139,7 @@ export class LecturasHumedadComponent implements OnInit {
   ) {
     // this.subscription = this.lecturahumedadService
   }
+  
   // Valores temporales para la nueva línea
   lte: number = 10;
   color: string = '#FF0000';
@@ -540,7 +566,7 @@ export class LecturasHumedadComponent implements OnInit {
    * Procesa los datos de lectura de humedad y temperatura, y genera un gráfico utilizando ECharts.
    */
   procesarLecturas(data: any): void {
-    const echarts = require('echarts');
+    // const echarts = require('echarts');
     const chartDom = document.getElementById('main')!;
     const mychart = echarts.init(chartDom); //'dark'
     
@@ -816,7 +842,8 @@ export class LecturasHumedadComponent implements OnInit {
    * Procesa los datos de niveles y genera un gráfico de líneas utilizando ECharts.
    */
   procesarNiveles(data: any): void {
-    const echarts = require('echarts');
+    // const echarts = require('echarts');
+    
     const DomChart = document.getElementById('nivelesChart');
     const chartNiveles = echarts.init(DomChart, { //'light' //'dark'
       renderer: 'canvas',

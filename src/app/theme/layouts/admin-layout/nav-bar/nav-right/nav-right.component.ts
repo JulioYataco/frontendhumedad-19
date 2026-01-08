@@ -2,10 +2,15 @@
 import { Component, inject, input, output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-// project import
+// Importaciones de PrimeNG
+import { MenuModule } from 'primeng/menu';
+import { ButtonModule } from 'primeng/button';
+import { BadgeModule } from 'primeng/badge';
+import { OverlayPanelModule } from 'primeng/overlaypanel'; // Para reemplazar dropdowns complejos
+import { AvatarModule } from 'primeng/avatar'; // Opcional, para la foto de perfil
 
 // icon
-import { IconService, IconDirective } from '@ant-design/icons-angular';
+import { IconService } from '@ant-design/icons-angular';
 import {
   BellOutline,
   SettingOutline,
@@ -25,13 +30,21 @@ import {
   ArrowRightOutline,
   GithubOutline
 } from '@ant-design/icons-angular/icons';
-import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { AuthService } from 'src/app/core/services/login/auth.service';
 
 @Component({
   selector: 'app-nav-right',
-  imports: [IconDirective, RouterModule, NgScrollbarModule, NgbNavModule, NgbDropdownModule],
+  imports: [
+    RouterModule, 
+    NgScrollbarModule, 
+    // Módulos nuevos de PrimeNG:
+    MenuModule,
+    ButtonModule,
+    BadgeModule,
+    OverlayPanelModule,
+    AvatarModule 
+  ],
   templateUrl: './nav-right.component.html',
   styleUrls: ['./nav-right.component.scss']
 })
