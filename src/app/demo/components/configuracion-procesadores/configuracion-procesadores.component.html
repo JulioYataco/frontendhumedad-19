@@ -70,51 +70,51 @@
         <div class="formulario">
             <div>
                 <label for="procesador" class="block font-bold mb-3">Procesador</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="procesadores" 
                     optionLabel="codigo" 
                     optionValue="id" 
                     [(ngModel)]="entidad.procesador" 
                     placeholder="Seleccione un procesador">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="sublote" class="block font-bold mb-3">Sublote</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="sublotes" 
                     optionLabel="nombre_sublote" 
                     optionValue="id" 
                     [(ngModel)]="entidad.sublote" 
                     placeholder="Seleccione un sublote">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="variedad" class="block font-bold mb-3">Variedad</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="variedades" 
                     optionLabel="nombre_variedad" 
                     optionValue="id" 
                     [(ngModel)]="entidad.variedad" 
                     placeholder="Seleccione una variedad">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="tipo_suelo" class="block font-bold mb-3">Tipo de suelo</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="tipoSuelos" 
                     optionLabel="nombre_tipo_suelo" 
                     optionValue="id" 
                     [(ngModel)]="entidad.tipo_suelo" 
                     placeholder="Seleccione un tipo de suelo">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="variedad_raiz" class="block font-bold mb-3">Variedad raiz</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="variedadRaices" 
                     optionLabel="nombre_variedad_raiz" 
@@ -122,7 +122,7 @@
                     [(ngModel)]="entidad.variedad_raiz" 
                     placeholder="Seleccione una variedad de raiz"
                     >
-                </p-dropdown>
+                </p-select>
             </div>
             
             <div>

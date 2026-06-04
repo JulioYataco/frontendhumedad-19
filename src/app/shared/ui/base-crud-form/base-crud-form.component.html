@@ -1,0 +1,19 @@
+<p-dialog
+  [header]="title"
+  [modal]="true"
+  [visible]="true"
+  [closable]="false"
+  [style]="{ width: '420px' }"
+>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <!-- Aquí va el contenido específico -->
+    <ng-content></ng-content>
+
+    <div class="actions">
+      <button pButton type="button" label="Cancelar" (click)="cancel()"></button>
+      <button pButton type="submit" label="Guardar"></button>
+    </div>
+
+  </form>
+</p-dialog>

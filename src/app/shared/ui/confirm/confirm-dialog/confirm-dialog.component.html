@@ -1,0 +1,69 @@
+<!--@if (confirm.state().visible) {
+  <div class="confirm-backdrop">
+    <div class="confirm-dialog">
+      <p>{{ confirm.state().message }}</p>
+
+      <div class="actions">
+        <button class="btn btn-secondary" (click)="confirm.close()">
+          Cancelar
+        </button>
+
+        <button class="btn btn-danger" (click)="confirm.confirm()">
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+}-->
+
+<!--  Segunda version  -->
+<!--@if (options()) {
+  <div class="confirm-backdrop">
+    <div class="confirm-dialog" [class]="options()?.severity">
+
+      <h3>{{ options()?.title ?? 'Confirmación' }}</h3>
+
+      <p>{{ options()?.message }}</p>
+
+      <div class="actions">
+        <button class="btn cancel" (click)="reject()">
+          {{ options()?.rejectLabel }}
+        </button>
+
+        <button class="btn confirm" (click)="accept()">
+          {{ options()?.acceptLabel }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+}-->
+
+@for (dialog of confirm.dialogs(); track dialog.id) {
+  <div class="overlay">
+    <div class="dialog" [class]="dialog.severity">
+      <h3>{{ dialog.title }}</h3>
+      <p>{{ dialog.message }}</p>
+
+      <div class="actions">
+        <button class="btn secondary" severity="secondary" variant="text" (click)="confirm.reject(dialog.id)">
+          {{ dialog.rejectLabel }}
+        </button>
+        <button class="btn primary" variant="text" severity="danger" (click)="confirm.accept(dialog.id)">
+          {{ dialog.acceptLabel }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+
+
+<!--<p-confirmDialog
+    key="global"
+    [stack]="true"
+    [style]="{ width: '420px' }"
+    acceptLabel="Sí"
+    rejectLabel="No">
+</p-confirmDialog>-->

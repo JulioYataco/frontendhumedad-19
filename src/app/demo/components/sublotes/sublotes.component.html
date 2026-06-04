@@ -66,7 +66,7 @@
         <div class="formulario">
             <div>
                 <label for="fundo" class="block font-bold mb-3">Fundo</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="fundos"
                     optionLabel="nombre_fundo"
@@ -75,12 +75,12 @@
                     [(ngModel)]="fundoSeleccionado"
                     (onChange)="cargarLotesPorFundo($event.value)"
                     placeholder="Seleccione un fundo">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="lote" class="block font-bold mb-3">Lote</label>
                 <!--1. usa la lista de lotes obtenidas en el component. 2.Muestra el valor extreno para el usuario en este caso nombre de lote. 3. optionValue="id" guarda el id del lote en la entidad 4. ngModel sigue guardando el ID en la entidad-->
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="lotesFiltrados" 
                     optionLabel="nombre_lote" 
@@ -88,11 +88,11 @@
                     [(ngModel)]="entidad.lote" 
                     [disabled]="!fundoSeleccionado"
                     placeholder="Seleccione un lote">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="cultivo" class="block font-bold mb-3">Cultivo</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="cultivos"
                     optionLabel="nombre_cultivo"
@@ -100,11 +100,11 @@
                     [(ngModel)]="cultivoSeleccionado"
                     (onChange)="cargarVariedadesPorCultivo($event.value)"
                     placeholder="Seleccione un fundo">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="variedad" class="block font-bold mb-3">Variedad</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="variedadesFiltrados" 
                     optionLabel="nombre_variedad" 
@@ -112,7 +112,7 @@
                     [(ngModel)]="entidad.variedad" 
                     [disabled]="!cultivoSeleccionado"
                     placeholder="Seleccione una variedad">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="nombre_sublote" class="block font-bold mb-3">Sublote</label>

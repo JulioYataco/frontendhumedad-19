@@ -1,0 +1,31 @@
+
+<app-base-crud
+    [items]="store.items()"
+    [loading]="store.loading()"
+    (createClick)="onCreate()"
+    (editClick)="onEdit($event)"
+    (deleteClick)="onDelete($event)">
+    <!-- HEADERS -->
+    <ng-template #tableHeader>
+        <th>Nombre</th>
+        <th>Capacidad retención</th>
+        <th>Drenaje</th>
+    </ng-template>
+
+    <!-- ROWS -->
+    <ng-template #tableRow let-item>
+        <td>{{ item.nombre_tipo_suelo }}</td>
+        <td>{{ item.capacidad_retencion_agua }}</td>
+        <td>{{ item.drenaje }}</td>
+    </ng-template>
+</app-base-crud>
+
+
+
+@if (showForm()) {
+    <app-tipos-suelos-form
+        [item]="selectedItem()"
+        (submitForm)="onSubmit($event)"
+        (cancelForm)="onCancel()"
+    ></app-tipos-suelos-form>
+}

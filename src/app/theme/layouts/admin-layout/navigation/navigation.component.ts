@@ -1,5 +1,5 @@
 // Angular import
-import { Component, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // project import
@@ -9,7 +9,9 @@ import { TabsModule } from 'primeng/tabs';
 @Component({
   selector: 'app-navigation',
   imports: [NavContentComponent, CommonModule, TabsModule],
-  templateUrl: './navigation.component.html',
+  // Esto es MANDATORIO para rendimiento y evitar NG0100 en apps modernas
+  templateUrl: './navigation.component.html', //Esto suele "curar" el NG0100 porque desconecta la detección de cambios automática y constante, basándose en señales o cambios de inputs.
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {

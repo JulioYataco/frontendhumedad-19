@@ -1,0 +1,73 @@
+// /* base */
+// .confirm-backdrop {
+//   position: fixed;
+//   inset: 0;
+//   background: rgba(0,0,0,.45);
+//   display: grid;
+//   place-items: center;
+//   z-index: 1000;
+// }
+
+// .confirm-dialog {
+//   background: white;
+//   border-radius: 8px;
+//   padding: 1.5rem;
+//   width: 420px;
+//   box-shadow: 0 20px 40px rgba(0,0,0,.25);
+
+//   h3 {
+//     margin: 0 0 .5rem;
+//   }
+
+//   .actions {
+//     display: flex;
+//     justify-content: flex-end;
+//     gap: .75rem;
+//     margin-top: 1.25rem;
+//   }
+// }
+
+// /* severities */
+// .confirm-dialog.danger {
+//   border-left: 6px solid #dc3545;
+// }
+
+// .confirm-dialog.warn {
+//   border-left: 6px solid #ffc107;
+// }
+
+// .confirm-dialog.info {
+//   border-left: 6px solid #0dcaf0;
+// }
+
+// .confirm-dialog.success {
+//   border-left: 6px solid #198754;
+// }
+
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.dialog {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 420px;
+}
+
+.dialog.warn { border-left: 6px solid orange; }
+.dialog.danger { border-left: 6px solid red; }
+.dialog.info { border-left: 6px solid #3b82f6; }
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: .5rem;
+}

@@ -10,10 +10,10 @@ import { SHARED_FORMULARIOS_IMPORTS } from 'src/app/shared/shared-imports';
 import { LecturahumedadService } from 'src/app/core/services/graficos/lecturahumedad/lecturahumedad.service';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
-import { DropdownModule } from 'primeng/dropdown';
+// import { DropdownModule } from 'primeng/dropdown';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { ToggleButtonModule } from 'primeng/togglebutton';
-import { CalendarModule } from 'primeng/calendar';
+// import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { RippleModule } from 'primeng/ripple';
@@ -44,6 +44,7 @@ import { NotificationService } from 'src/app/core/services/pushnotification/noti
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule } from '@angular/forms';
 
+import { Select } from 'primeng/select';
 
 //import { CommonModule } from '@angular/common';
 //import 'echarts/theme/dark'; // Importa un tema
@@ -78,10 +79,9 @@ echarts.use([
     RippleModule, 
     InputNumberModule, 
     ColorPickerModule, 
-    CalendarModule, 
     NgxEchartsDirective, 
     ButtonModule, 
-    DropdownModule, 
+    Select, 
     MenubarModule, 
     InputGroupModule, 
     ToggleButtonModule, 

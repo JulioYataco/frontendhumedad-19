@@ -10,7 +10,7 @@ import { IconDirective } from '@ant-design/icons-angular';
 
 @Component({
   selector: 'app-nav-item',
-  imports: [CommonModule, IconDirective, RouterModule],
+  imports: [CommonModule,IconDirective , RouterModule],
   templateUrl: './nav-item.component.html',
   styleUrls: ['./nav-item.component.scss']
 })

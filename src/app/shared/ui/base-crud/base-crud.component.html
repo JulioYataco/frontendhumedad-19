@@ -1,0 +1,47 @@
+<section class="crud">
+
+  <header class="crud-header">
+    <h2>{{ title() }}</h2>
+
+    <button class="btn btn-primary" (click)="createClick.emit()">
+      Nuevo
+    </button>
+  </header>
+
+  @if (loading()) {
+    <div class="crud-loading">Cargando...</div>
+  }
+
+  @if (!loading() && items().length === 0) {
+    <div class="crud-empty">
+      No hay registros
+    </div>
+  }
+
+  @if (!loading() && items().length > 0) {
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <ng-container *ngTemplateOutlet="tableHeaderTpl() || null"></ng-container>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (item of items(); track item) {
+          <tr>
+            <ng-container
+              *ngTemplateOutlet="tableRowTpl() || null; context: { $implicit: item }">
+            </ng-container>
+
+            <td class="actions">
+                <button class="btn btn-warning" (click)="editClick.emit(item)">Editar</button>
+                <button class="btn btn-danger" (click)="deleteClick.emit(item)">Eliminar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+</section>

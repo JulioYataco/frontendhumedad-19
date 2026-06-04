@@ -62,7 +62,7 @@
         <div class="formulario">
             <div>
                 <label for="sede" class="block font-bold mb-3">Sede</label>
-                <p-dropdown fluid 
+                <p-select fluid 
                     [appendTo]="'body'" 
                     [options]="sedes"
                     optionLabel="nombre_sede"
@@ -70,7 +70,7 @@
                     [(ngModel)]="entidad.sede"
                     placeholder="Seleccione una sede"
                 >
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="nombre_cultivo" class="block font-bold mb-3">Nombre de cultivo</label>

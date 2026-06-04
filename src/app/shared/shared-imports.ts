@@ -16,7 +16,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { importProvidersFrom } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { DropdownModule } from 'primeng/dropdown';
+// import { DropdownModule } from 'primeng/dropdown';
 import { DatePickerModule } from 'primeng/datepicker';
 import { Select } from 'primeng/select';
 // import { MessageService } from 'primeng/api';
@@ -32,8 +32,6 @@ export const SHARED_FORMULARIOS_IMPORTS = [
     DialogModule,          //Permite usar <p-dialog></p-dialog>
     CardComponent,         //Permite usar <app-card></app-card>
     RippleModule,
-    ToastModule,
-    DropdownModule,
     Select,
     DatePickerModule,
     InputIconModule,

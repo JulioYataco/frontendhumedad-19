@@ -77,10 +77,16 @@ export const routes: Routes = [
       },
       {
         path: 'tipos-suelos',
-        loadComponent: () => import('./demo/components/tipos-suelos/tipos-suelos.component').then((c) => c.TiposSuelosComponent),
+        loadChildren: () => import('./demo/tipos-suelos/routes').then((c) => c.TIPOS_SUELOS_ROUTES),
         canActivate: [authGuard, rolGuard],
         data: {rol: ['Administrador', 'Super Usuario']},
       },
+      // {
+      //   path: 'tipos-suelos',
+      //   loadComponent: () => import('./demo/components/tipos-suelos/tipos-suelos.component').then((c) => c.TiposSuelosComponent),
+      //   canActivate: [authGuard, rolGuard],
+      //   data: {rol: ['Administrador', 'Super Usuario']},
+      // },
       {
         path: 'fenologias',
         loadComponent: () => import('./demo/components/fenologias/fenologias.component').then((c) => c.FenologiasComponent),

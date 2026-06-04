@@ -62,14 +62,14 @@
         <div class="formulario">
             <div>
                 <label for="fundo" class="block font-bold mb-3">Fundo</label>
-                <p-dropdown fluid 
+                <p-select fluid 
                     [appendTo]="'body'"
                     [options]="fundos"
                     optionLabel="nombre_fundo"
                     optionValue="id"
                     [(ngModel)]="entidad.fundo"
                     placeholder="Seleccione un fundo">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="nombre_lote" class="block font-bold mb-3">Lote</label>

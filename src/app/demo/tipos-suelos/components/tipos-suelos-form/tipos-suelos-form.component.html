@@ -1,0 +1,88 @@
+<p-dialog
+  header="{{ item ? 'Editar tipo de suelo' : 'Nuevo tipo de suelo' }}"
+  [modal]="true"
+  [closable]="false"
+  [visible]="true"
+  [style]="{ width: '420px' }"
+>
+    <!--<form [formGroup]="form" (ngSubmit)="submit()">
+
+    <div class="form-group">
+        <label>Nombre</label>
+        <input formControlName="nombre_tipo_suelo" />
+    </div>
+
+    <div class="form-group">
+        <label>Capacidad retención</label>
+        <input 
+            type="number" 
+            formControlName="capacidad_retencion_agua" 
+            (input)="form.controls.capacidad_retencion_agua.setValue(
+                $any($event.target).valueAsNumber
+            )"
+            />
+    </div>
+
+    <div class="form-group">
+        <label>Drenaje</label>
+        <input 
+            type="number"
+            formControlName="drenaje" 
+            (input)="form.controls.drenaje.setValue(
+                $any($event.target).valueAsNumber
+            )"
+            />
+    </div>
+
+    <div class="actions">
+        <button type="button" (click)="cancel()">Cancelar</button>
+        <button type="submit">Guardar</button>
+    </div>
+
+    </form>-->
+    <form [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
+        <div class="mb-3">
+            <label class="block mb-2 font-bold">Nombre</label>
+            <input 
+                pInputText 
+                class="w-full"
+                formControlName="nombre_tipo_suelo" 
+            />
+            @if (form.controls.nombre_tipo_suelo.invalid && form.controls.nombre_tipo_suelo.touched) {
+                <small class="text-red-500">El nombre es requerido</small>
+            }
+        </div>
+
+        <div class="mb-3">
+            <label class="block mb-2 font-bold">Capacidad retención</label>
+            <input 
+                pInputText
+                class="w-full"
+                formControlName="capacidad_retencion_agua" 
+            />
+        </div>
+
+        <div class="mb-3">
+            <label class="block mb-2 font-bold">Drenaje</label>
+            <input 
+                pInputText
+                class="w-full"
+                formControlName="drenaje" />
+        </div>
+
+        <div class="flex justify-end gap-2 mt-4">
+            <button 
+                pButton
+                label="Cancelar"
+                class="p-button-text" 
+                type="button" 
+                (click)="cancel()">
+            </button>
+            <button 
+                pButton
+                label="Guardar"
+                type="submit">
+            </button>
+        </div>
+    </form>
+</p-dialog>

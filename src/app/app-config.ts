@@ -13,10 +13,11 @@ import { CookieService } from "ngx-cookie-service";
 //Graficos con echarts
 //import { provideECharts } from 'ngx-echarts';
 // import { providePrimeNG } from "primeng/config";
-// import Aura from '@primeng/themes/aura';
-import { MessageService } from "primeng/api";
+import Aura from '@primeuix/themes/aura';
+import { ConfirmationService, MessageService } from "primeng/api";
 import { SHARED_PROVIDERS } from "./shared/shared-imports";
 import { provideServiceWorker } from '@angular/service-worker';
+import { providePrimeNG } from "primeng/config";
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -29,16 +30,16 @@ export const appConfig: ApplicationConfig = {
         provideHttpClient(withInterceptors([authInterceptor])),
         CookieService,
         provideAnimationsAsync(),
-        
-        // providePrimeNG({
-        //     theme: {
-        //         preset: Aura,
-        //         options: {
-        //             darkModeSelector: '.my-app-dark'
-        //         }
-        //     }
-        // }),
+        providePrimeNG({
+          theme: {
+            preset: Aura,
+            options: {
+              darkModeSelector: '.my-app-dark',
+            }
+          }
+        }),
         MessageService,
+        ConfirmationService,
         //Si usaramos solo SHARED_PROVIDERS es porque esto es un array, y angular espera un array de providers, si hacemos esto el resultado seria:
         //providers: [
         // [

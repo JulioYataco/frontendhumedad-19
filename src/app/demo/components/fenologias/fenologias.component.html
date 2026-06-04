@@ -72,7 +72,7 @@
         <div class="formulario">
             <div>
                 <label for="cultivo" class="block font-bold mb-3">Cultivo</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="cultivos" 
                     optionLabel="nombre_cultivo" 
@@ -80,11 +80,11 @@
                     [(ngModel)]="cultivoSeleccionado" 
                     (onChange)="cargarVariedadesPorCultivo($event.value)"
                     placeholder="Seleccione un cultivo">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="variedad" class="block font-bold mb-3">Variedad</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="variedadesFiltrados" 
                     optionLabel="nombre_variedad" 
@@ -92,18 +92,18 @@
                     [(ngModel)]="entidad.variedad" 
                     [disabled]="!cultivoSeleccionado"
                     placeholder="Seleccione una variedad">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="tipo_suelo" class="block font-bold mb-3">Tipo de suelo</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="tipoSuelos" 
                     optionLabel="nombre_tipo_suelo" 
                     optionValue="id" 
                     [(ngModel)]="entidad.tipo_suelo" 
                     placeholder="Seleccione un tipo de suelo">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="etapa_fenologica" class="block font-bold mb-3">Etapa Fenologica</label>

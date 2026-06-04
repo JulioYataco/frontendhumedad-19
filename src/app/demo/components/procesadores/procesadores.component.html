@@ -66,7 +66,7 @@
         <div class="formulario">
             <div>
                 <label for="tipo_sensor" class="block font-bold mb-3">Tipo Sensor</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="tipoSensores"
                     optionLabel="nombre_tipo_sensor"
@@ -74,7 +74,7 @@
                     [(ngModel)]="entidad.tipo_sensor"
                     placeholder="Seleccionaa un tipo de sensor"
                 >
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="codigo" class="block font-bold mb-3">Código</label>

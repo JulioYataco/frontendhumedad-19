@@ -65,14 +65,14 @@
             <div>
                 <label for="ubigeo" class="block font-bold mb-3">UBIGEO</label>
                 <!--1. usa la lista de lotes obtenidas en el component. 2.Muestra el valor extreno para el usuario en este caso nombre de lote. 3. optionValue="id" guarda el id del lote en la entidad 4. ngModel sigue guardando el ID en la entidad-->
-                <p-dropdown fluid
+                <p-select fluid
                   [appendTo]="'body'"
                   [options]="ubigeos" 
                   optionLabel="ubigeocompleto" 
                   optionValue="ubigeo" 
                   [(ngModel)]="entidad.ubigeo" 
                   placeholder="Seleccione un distrito">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="nombre_sede" class="block font-bold mb-3">Sede</label>

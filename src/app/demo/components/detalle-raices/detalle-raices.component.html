@@ -70,25 +70,25 @@
         <div class="formulario">
             <div>
                 <label for="variedad" class="block font-bold mb-3">ariedad</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="variedades" 
                     optionLabel="nombre_variedad" 
                     optionValue="id" 
                     [(ngModel)]="entidad.variedad" 
                     placeholder="Seleccione una variedad">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="variedad_raiz" class="block font-bold mb-3">Variedad raiz</label>
-                <p-dropdown fluid
+                <p-select fluid
                     [appendTo]="'body'"
                     [options]="variedadRaices" 
                     optionLabel="nombre_variedad_raiz" 
                     optionValue="id" 
                     [(ngModel)]="entidad.variedad_raiz" 
                     placeholder="Seleccione una variedad de raiz">
-                </p-dropdown>
+                </p-select>
             </div>
             <div>
                 <label for="edad_inicio" class="block font-bold mb-3">Edad Inicio</label>
